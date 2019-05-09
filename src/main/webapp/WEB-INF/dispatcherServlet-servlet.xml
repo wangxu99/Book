@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+	<!-- 开启自动扫描 现在只能@controller在springMvc中 -->
+	
+	<context:component-scan base-package="com.oracle.*" use-default-filters="false">
+	 <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+ <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+	</context:component-scan>
+	<!-- 配置视图解析器 返回一个Ok 解析器会在其后拼上.jsp /admin/OK.jsp -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 指定前缀 -->
+		<property name="prefix" value="/"></property>
+		<property name="suffix" value=".jsp"></property><!-- 指定后缀 -->
+	</bean>
+	<!-- p配置自己的视图解析器 -->
+	<!-- <bean class="org.springframework.web.servlet.view.BeanNameViewResolver"> 
+		<property name="order" value="99" ></property>级别数字越小级别越高 </bean> -->
+ 
+	<!-- 配置了springmvc的文件上传解析器 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
+ 
+	<!-- 加载本地js -->
+  
+	<mvc:annotation-driven></mvc:annotation-driven>
+	<mvc:default-servlet-handler />
+</beans>
