@@ -66,7 +66,7 @@ h3{
 
 
 			<li><span class="ui-icon ui-icon-search"></span><a
-				href="BookServlet?action=showPasgeBook&ausername=${ausername  }" target="right"><font
+				href="showBook/1" target="right"><font
 					face="黑体" size="4" color="#337AB7">查看图书</font></a></li>
 
 
