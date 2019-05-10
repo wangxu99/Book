@@ -1,9 +1,9 @@
 package com.oracle.web.bean;
 
 public class Admin {
-    private Integer id;
+    private Integer aid;
 
-    private String name;
+    private String aname;
 
     private String ausername;
 
@@ -13,20 +13,20 @@ public class Admin {
 
     private String touxiang;
 
-    public Integer getId() {
-        return id;
+    public Integer getAid() {
+        return aid;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setAid(Integer aid) {
+        this.aid = aid;
     }
 
-    public String getName() {
-        return name;
+    public String getAname() {
+        return aname;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setAname(String aname) {
+        this.aname = aname == null ? null : aname.trim();
     }
 
     public String getAusername() {
@@ -63,9 +63,8 @@ public class Admin {
 
 	@Override
 	public String toString() {
-		return "Admin [id=" + id + ", name=" + name + ", ausername=" + ausername + ", password=" + password + ", phone="
-				+ phone + ", touxiang=" + touxiang + "]";
+		return "Admin [aid=" + aid + ", aname=" + aname + ", ausername=" + ausername + ", password=" + password
+				+ ", phone=" + phone + ", touxiang=" + touxiang + "]";
 	}
-    
     
 }

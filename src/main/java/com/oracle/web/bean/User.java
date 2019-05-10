@@ -1,9 +1,9 @@
 package com.oracle.web.bean;
 
 public class User {
-    private Integer id;
+    private Integer uid;
 
-    private String name;
+    private String uname;
 
     private String username;
 
@@ -15,20 +15,20 @@ public class User {
 
     private String touxiang;
 
-    public Integer getId() {
-        return id;
+    public Integer getUid() {
+        return uid;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUid(Integer uid) {
+        this.uid = uid;
     }
 
-    public String getName() {
-        return name;
+    public String getUname() {
+        return uname;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setUname(String uname) {
+        this.uname = uname == null ? null : uname.trim();
     }
 
     public String getUsername() {

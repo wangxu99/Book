@@ -10,7 +10,7 @@ public interface FenleiMapper {
 
     int deleteByExample(FenleiExample example);
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Integer fid);
 
     int insert(Fenlei record);
 
@@ -18,7 +18,7 @@ public interface FenleiMapper {
 
     List<Fenlei> selectByExample(FenleiExample example);
 
-    Fenlei selectByPrimaryKey(Integer id);
+    Fenlei selectByPrimaryKey(Integer fid);
 
     int updateByExampleSelective(@Param("record") Fenlei record, @Param("example") FenleiExample example);
 

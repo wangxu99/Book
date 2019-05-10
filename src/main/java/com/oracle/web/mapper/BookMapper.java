@@ -1,6 +1,7 @@
 package com.oracle.web.mapper;
 
 import com.oracle.web.bean.Book;
+import com.oracle.web.bean.BookAndFenlei;
 import com.oracle.web.bean.BookExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -10,7 +11,7 @@ public interface BookMapper {
 
     int deleteByExample(BookExample example);
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Integer bid);
 
     int insert(Book record);
 
@@ -18,7 +19,7 @@ public interface BookMapper {
 
     List<Book> selectByExample(BookExample example);
 
-    Book selectByPrimaryKey(Integer id);
+    Book selectByPrimaryKey(Integer bid);
 
     int updateByExampleSelective(@Param("record") Book record, @Param("example") BookExample example);
 
@@ -27,4 +28,6 @@ public interface BookMapper {
     int updateByPrimaryKeySelective(Book record);
 
     int updateByPrimaryKey(Book record);
+
+	List<BookAndFenlei> selectBookAll();
 }

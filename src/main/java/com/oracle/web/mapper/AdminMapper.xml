@@ -2,14 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.oracle.web.mapper.AdminMapper">
   <resultMap id="BaseResultMap" type="com.oracle.web.bean.Admin">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
+    <id column="aid" jdbcType="INTEGER" property="aid" />
+    <result column="aname" jdbcType="VARCHAR" property="aname" />
     <result column="ausername" jdbcType="VARCHAR" property="ausername" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="touxiang" jdbcType="VARCHAR" property="touxiang" />
   </resultMap>
- 
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -69,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, ausername, password, phone, touxiang
+    aid, aname, ausername, password, phone, touxiang
   </sql>
   <select id="selectByExample" parameterType="com.oracle.web.bean.AdminExample" resultMap="BaseResultMap">
     select
@@ -89,11 +88,11 @@
     select 
     <include refid="Base_Column_List" />
     from admin
-    where id = #{id,jdbcType=INTEGER}
+    where aid = #{aid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from admin
-    where id = #{id,jdbcType=INTEGER}
+    where aid = #{aid,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.oracle.web.bean.AdminExample">
     delete from admin
@@ -102,21 +101,21 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.oracle.web.bean.Admin">
-    insert into admin (id, name, ausername, 
+    insert into admin (aid, aname, ausername, 
       password, phone, touxiang
       )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{ausername,jdbcType=VARCHAR}, 
+    values (#{aid,jdbcType=INTEGER}, #{aname,jdbcType=VARCHAR}, #{ausername,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{touxiang,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.oracle.web.bean.Admin">
     insert into admin
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
+      <if test="aid != null">
+        aid,
       </if>
-      <if test="name != null">
-        name,
+      <if test="aname != null">
+        aname,
       </if>
       <if test="ausername != null">
         ausername,
@@ -132,11 +131,11 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
+      <if test="aid != null">
+        #{aid,jdbcType=INTEGER},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="aname != null">
+        #{aname,jdbcType=VARCHAR},
       </if>
       <if test="ausername != null">
         #{ausername,jdbcType=VARCHAR},
@@ -161,11 +160,11 @@
   <update id="updateByExampleSelective" parameterType="map">
     update admin
     <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
+      <if test="record.aid != null">
+        aid = #{record.aid,jdbcType=INTEGER},
       </if>
-      <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
+      <if test="record.aname != null">
+        aname = #{record.aname,jdbcType=VARCHAR},
       </if>
       <if test="record.ausername != null">
         ausername = #{record.ausername,jdbcType=VARCHAR},
@@ -186,8 +185,8 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update admin
-    set id = #{record.id,jdbcType=INTEGER},
-      name = #{record.name,jdbcType=VARCHAR},
+    set aid = #{record.aid,jdbcType=INTEGER},
+      aname = #{record.aname,jdbcType=VARCHAR},
       ausername = #{record.ausername,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
@@ -199,8 +198,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.oracle.web.bean.Admin">
     update admin
     <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+      <if test="aname != null">
+        aname = #{aname,jdbcType=VARCHAR},
       </if>
       <if test="ausername != null">
         ausername = #{ausername,jdbcType=VARCHAR},
@@ -215,15 +214,15 @@
         touxiang = #{touxiang,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where aid = #{aid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.oracle.web.bean.Admin">
     update admin
-    set name = #{name,jdbcType=VARCHAR},
+    set aname = #{aname,jdbcType=VARCHAR},
       ausername = #{ausername,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       touxiang = #{touxiang,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    where aid = #{aid,jdbcType=INTEGER}
   </update>
 </mapper>

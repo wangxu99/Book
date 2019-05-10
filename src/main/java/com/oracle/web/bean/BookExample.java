@@ -104,63 +104,63 @@ public class BookExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andIdIsNull() {
-            addCriterion("id is null");
+        public Criteria andBidIsNull() {
+            addCriterion("bid is null");
             return (Criteria) this;
         }
 
-        public Criteria andIdIsNotNull() {
-            addCriterion("id is not null");
+        public Criteria andBidIsNotNull() {
+            addCriterion("bid is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIdEqualTo(Integer value) {
-            addCriterion("id =", value, "id");
+        public Criteria andBidEqualTo(Integer value) {
+            addCriterion("bid =", value, "bid");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotEqualTo(Integer value) {
-            addCriterion("id <>", value, "id");
+        public Criteria andBidNotEqualTo(Integer value) {
+            addCriterion("bid <>", value, "bid");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThan(Integer value) {
-            addCriterion("id >", value, "id");
+        public Criteria andBidGreaterThan(Integer value) {
+            addCriterion("bid >", value, "bid");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("id >=", value, "id");
+        public Criteria andBidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("bid >=", value, "bid");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThan(Integer value) {
-            addCriterion("id <", value, "id");
+        public Criteria andBidLessThan(Integer value) {
+            addCriterion("bid <", value, "bid");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThanOrEqualTo(Integer value) {
-            addCriterion("id <=", value, "id");
+        public Criteria andBidLessThanOrEqualTo(Integer value) {
+            addCriterion("bid <=", value, "bid");
             return (Criteria) this;
         }
 
-        public Criteria andIdIn(List<Integer> values) {
-            addCriterion("id in", values, "id");
+        public Criteria andBidIn(List<Integer> values) {
+            addCriterion("bid in", values, "bid");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotIn(List<Integer> values) {
-            addCriterion("id not in", values, "id");
+        public Criteria andBidNotIn(List<Integer> values) {
+            addCriterion("bid not in", values, "bid");
             return (Criteria) this;
         }
 
-        public Criteria andIdBetween(Integer value1, Integer value2) {
-            addCriterion("id between", value1, value2, "id");
+        public Criteria andBidBetween(Integer value1, Integer value2) {
+            addCriterion("bid between", value1, value2, "bid");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("id not between", value1, value2, "id");
+        public Criteria andBidNotBetween(Integer value1, Integer value2) {
+            addCriterion("bid not between", value1, value2, "bid");
             return (Criteria) this;
         }
 
@@ -224,73 +224,73 @@ public class BookExample {
             return (Criteria) this;
         }
 
-        public Criteria andNameIsNull() {
-            addCriterion("name is null");
+        public Criteria andBnameIsNull() {
+            addCriterion("bname is null");
             return (Criteria) this;
         }
 
-        public Criteria andNameIsNotNull() {
-            addCriterion("name is not null");
+        public Criteria andBnameIsNotNull() {
+            addCriterion("bname is not null");
             return (Criteria) this;
         }
 
-        public Criteria andNameEqualTo(String value) {
-            addCriterion("name =", value, "name");
+        public Criteria andBnameEqualTo(String value) {
+            addCriterion("bname =", value, "bname");
             return (Criteria) this;
         }
 
-        public Criteria andNameNotEqualTo(String value) {
-            addCriterion("name <>", value, "name");
+        public Criteria andBnameNotEqualTo(String value) {
+            addCriterion("bname <>", value, "bname");
             return (Criteria) this;
         }
 
-        public Criteria andNameGreaterThan(String value) {
-            addCriterion("name >", value, "name");
+        public Criteria andBnameGreaterThan(String value) {
+            addCriterion("bname >", value, "bname");
             return (Criteria) this;
         }
 
-        public Criteria andNameGreaterThanOrEqualTo(String value) {
-            addCriterion("name >=", value, "name");
+        public Criteria andBnameGreaterThanOrEqualTo(String value) {
+            addCriterion("bname >=", value, "bname");
             return (Criteria) this;
         }
 
-        public Criteria andNameLessThan(String value) {
-            addCriterion("name <", value, "name");
+        public Criteria andBnameLessThan(String value) {
+            addCriterion("bname <", value, "bname");
             return (Criteria) this;
         }
 
-        public Criteria andNameLessThanOrEqualTo(String value) {
-            addCriterion("name <=", value, "name");
+        public Criteria andBnameLessThanOrEqualTo(String value) {
+            addCriterion("bname <=", value, "bname");
             return (Criteria) this;
         }
 
-        public Criteria andNameLike(String value) {
-            addCriterion("name like", value, "name");
+        public Criteria andBnameLike(String value) {
+            addCriterion("bname like", value, "bname");
             return (Criteria) this;
         }
 
-        public Criteria andNameNotLike(String value) {
-            addCriterion("name not like", value, "name");
+        public Criteria andBnameNotLike(String value) {
+            addCriterion("bname not like", value, "bname");
             return (Criteria) this;
         }
 
-        public Criteria andNameIn(List<String> values) {
-            addCriterion("name in", values, "name");
+        public Criteria andBnameIn(List<String> values) {
+            addCriterion("bname in", values, "bname");
             return (Criteria) this;
         }
 
-        public Criteria andNameNotIn(List<String> values) {
-            addCriterion("name not in", values, "name");
+        public Criteria andBnameNotIn(List<String> values) {
+            addCriterion("bname not in", values, "bname");
             return (Criteria) this;
         }
 
-        public Criteria andNameBetween(String value1, String value2) {
-            addCriterion("name between", value1, value2, "name");
+        public Criteria andBnameBetween(String value1, String value2) {
+            addCriterion("bname between", value1, value2, "bname");
             return (Criteria) this;
         }
 
-        public Criteria andNameNotBetween(String value1, String value2) {
-            addCriterion("name not between", value1, value2, "name");
+        public Criteria andBnameNotBetween(String value1, String value2) {
+            addCriterion("bname not between", value1, value2, "bname");
             return (Criteria) this;
         }
 

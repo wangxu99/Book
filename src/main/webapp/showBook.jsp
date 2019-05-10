@@ -9,11 +9,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="bootstrap/css/bootstrap.css" />
-<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
-<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+<script
+	src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 
 <title>查看图书</title>
 <script type="text/javascript" src="js/jquery-1.8.3.js"></script>
@@ -106,11 +112,11 @@
 
 				var flage = confirm("你确定删除所勾选的图书吗？");
 				if (flage == true) {//确定
-					window.location.href = "<%=base%>BookServlet?action=delete&ids="+ str + "&pageNew=${pb.pageNew}&ausername=${ausername  }";
+					window.location.href = "<%=base%>BookServlet?action=delete&ids="+ str + "&pageNow=${pb.pageNow}&ausername=${ausername  }";
 
 				} else {//取消
 
-					window.location.href = "<%=base%>BookServlet?action=showPasgeBook&pageNew=${pb.pageNew}&ausername=${ausername  }";
+					window.location.href = "<%=base%>BookServlet?action=showPasgeBook&pageNow=${pb.pageNow}&ausername=${ausername  }";
 
 				}
 			}
@@ -155,7 +161,7 @@
 					window.location.href = "<%=base%>OutPutBookServlet?action=outids&ids="+str;
 
 				} else {//取消
-					window.location.href = "<%=base%>BookServlet?action=showPasgeBook&pageNew=${pb.pageNew}&ausername=${ausername  }";
+					window.location.href = "<%=base%>BookServlet?action=showPasgeBook&pageNow=${pb.pageNow}&ausername=${ausername  }";
 				}
 			}
 		};
@@ -167,7 +173,7 @@
 				window.location.href = "<%=base%>OutPutBookServlet?action=all";
 			 
 		} else {//取消
-			window.location.href = "<%=base%>BookServlet?action=showPasgeBook&pageNew=${pb.pageNew }&ausername=${ausername  }";
+			window.location.href = "<%=base%>BookServlet?action=showPasgeBook&pageNow=${pb.pageNow }&ausername=${ausername  }";
 		}
 		}
 		
@@ -196,20 +202,7 @@
 	
 		
 	};
-	/*
-	$(function(){
-		 
-	$("#tb2 tr").mouseover(function(){
-		$(this).css("background-color","#F8C7D4");
-	})
-	
-	$("#tb2 tr").mouseout(function(){
-		$(this).css("background-color","#FFFBFC");
-		 
-	})
-	
-	});*/
-	
+ 
 
 </script>
 <style>
@@ -346,56 +339,7 @@
 				<table id="t">
 					<tr height="6%">
 						<td align="center" colspan=2><br> <font size="7"
-							color="#337AB7" face="宋体"><strong>查看图书</strong></font> <!--
-							<form class="form-horizontal">
-							<div class="row">
-								<div class="control-group col-sm-4">
-									<label  class="col-sm-5  " >选择分类： </label>
-									<div class="controls col-sm-7 ">
-										<select name="findflname"  class="form-control  input-sm" >
-											<option>----请选择----</option>
-											<c:forEach items="${list }" var="s">
-
-												<option>${s.name}</option>
-											</c:forEach>
-										</select>
-									</div>
-									</div>
-									<div class="control-group col-sm-4 ">
-									<label class="col-sm-4 control-label">书名:</label>
-									<div class="controls col-sm-8 ">
-										<input type="text"  class="form-control  input-sm"/>
-									</div>
-									</div>
-									<div class="control-group col-sm-4 ">
-									<label class="col-sm-4 control-label"> 作者:</label>
-									<div class="controls  col-sm-8">
-										<input type="text"  class="form-control  input-sm"/>
-									</div>
-								</div>
-								</div>
-							 
-								<div class="row r2">
-								<div class="control-group col-sm-4  ">
-									<label class="col-sm-4 control-label">借书人:</label>
-									<div class="controls  col-sm-8">
-										<input type="text"  class="form-control  input-sm" />
-									</div>
-									</div>
-									<div class="control-group col-sm-4 ">
-									<label class="control-label col-sm-4"> 状态:</label>
-									<div class="controls  col-sm-8">
-										<input type="text"  class="form-control  input-sm"/>
-									</div>
-								 </div>
-								 <div class="control-group col-sm-4 ">
-								 <div class="controls  col-sm-6">
-							 <input type="submit"  value="高级搜索" class="form-control"/>
-							  </div>
-							 </div>
-							 </div>
-							</form> 
-							 --></td>
+							color="#337AB7" face="宋体"><strong>查看图书</strong></font>  </td>
 					</tr>
 
 					<tr align="center">
@@ -416,15 +360,15 @@
 								<c:forEach items="${pb.beanList }" var="s" varStatus="ss">
 									<tr align='center'>
 										<td>${ss.index+1}</td>
-										<td>${s.flname}</td>
-										<td>${s.name}</td>
+										<td>${s.fenlei.fname}</td>
+										<td>${s.bname}</td>
 										<td>${s.money}</td>
 										<td>${s.press}</td>
 										<td>${s.author}</td>
 										<td>${s.stock}</td>
-										<td><input type="checkbox" name="ids" value="${s.id}" /></td>
+										<td><input type="checkbox" name="ids" value="${s.bid}" /></td>
 										<td><a
-											href='<%=base %>BookServlet?action=showOne&id=${s.id }&pageNew=${pb.pageNew }&ausername=${ausername  }'>
+											href='<%=base %>BookServlet?action=showOne&id=${s.bid }&pageNow=${pb.pageNow }'>
 												<input type="button" value="修改" class="btn btn-info btn-sm" />
 										</a></td>
 									</tr>
@@ -432,16 +376,16 @@
 							</table>
 
                
-				<c:if  test="${showPesge=='gao'}" > 
-							<p>第${pb.pageNew }页/共${pb.pages } 
+				<c:if  test="${showPesge=='gaoji'}" > 
+							<p>第${pb.pageNow }页/共${pb.pages } 
 							<ul class="pagination ">
 
 								<li><a
-									href="${pb.url }&pageNew=1">首页</a>
+									href="${pb.url }&pageNow=1">首页</a>
 									</li>
-								<c:if test="${pb.pageNew>1 }">
+								<c:if test="${pb.pageNow>1 }">
 									<li><a aria-label="Previous"
-										href="${pb.url }&pageNew=${pb.pageNew-1 }"><span
+										href="${pb.url }&pageNow=${pb.pageNow-1 }"><span
 											aria-hidden="ture">上一页</span></a></li>
 								</c:if>
 
@@ -456,8 +400,8 @@
 										<c:set var="end" value="${pb.pages }"></c:set>
 									</c:when>
 									<c:otherwise>
-										<c:set var="begin" value="${pb.pageNew-5 }"></c:set>
-										<c:set var="end" value="${pb.pageNew+4 }"></c:set>
+										<c:set var="begin" value="${pb.pageNow-5 }"></c:set>
+										<c:set var="end" value="${pb.pageNow+4 }"></c:set>
 										<c:if test="${begin<=1 }">
 											<c:set var="begin" value="1"></c:set>
 											<c:set var="end" value="10"></c:set>
@@ -473,44 +417,44 @@
 
 								<c:forEach begin="${begin }" end="${end }" var="i">
 									<c:choose>
-										<c:when test="${pb.pageNew==i }">
+										<c:when test="${pb.pageNow==i }">
 											<li class="active"><span>${i }</span></li>
 										</c:when>
 										<c:otherwise>
 											<li><a
-												href="${pb.url }&pageNew=${i}">${i }</a>
+												href="${pb.url }&pageNow=${i}">${i }</a>
 											</li>
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
 
 
-								<c:if test="${pb.pageNew<pb.pages }">
+								<c:if test="${pb.pageNow<pb.pages }">
 									<li><a
-										href="${pb.url }&pageNew=${pb.pageNew+1 }"
+										href="${pb.url }&pageNow=${pb.pageNow+1 }"
 										aria-label="Previous"><span aria-hidden="ture">下一页</span></a>
 									</li>
 								</c:if>
 
 								 
 								<li><a
-									href="${pb.url }&pageNew=${pb.pages}">尾页
+									href="${pb.url }&pageNow=${pb.pages}">尾页
 								</a>
 								</li>
 								</p>
 				
 							</ul>
 					  </c:if>
-					  <c:if test="${showPesge=='book'}"> 
-								<p>第${pb.pageNew }页/共${pb.pages } 
+					  <c:if test="${showPesge=='showBook'}"> 
+								<p>第${pb.pageNow }页/共${pb.pages } 
 							<ul class="pagination ">
 
 								<li><a
-									href="<%=base%>BookServlet?action=showPasgeBook&pageNew=1&ausername=${ausername  }">首页</a>
+									href="http://localhost/Book/showBookHandler/1">首页</a>
 									</li>
-								<c:if test="${pb.pageNew>1 }">
+								<c:if test="${pb.pageNow>1 }">
 									<li><a aria-label="Previous"
-										href="<%=base %>BookServlet?action=showPasgeBook&pageNew=${pb.pageNew-1 }&ausername=${ausername  }"><span
+										href="http://localhost/Book/showBookHandler/${pb.pageNow-1 }"><span
 											aria-hidden="ture">上一页</span></a></li>
 								</c:if>
 
@@ -525,8 +469,8 @@
 										<c:set var="end" value="${pb.pages }"></c:set>
 									</c:when>
 									<c:otherwise>
-										<c:set var="begin" value="${pb.pageNew-5 }"></c:set>
-										<c:set var="end" value="${pb.pageNew+4 }"></c:set>
+										<c:set var="begin" value="${pb.pageNow-5 }"></c:set>
+										<c:set var="end" value="${pb.pageNow+4 }"></c:set>
 										<c:if test="${begin<=1 }">
 											<c:set var="begin" value="1"></c:set>
 											<c:set var="end" value="10"></c:set>
@@ -542,28 +486,28 @@
 
 								<c:forEach begin="${begin }" end="${end }" var="i">
 									<c:choose>
-										<c:when test="${pb.pageNew==i }">
+										<c:when test="${pb.pageNow==i }">
 											<li class="active"><span>${i }</span></li>
 										</c:when>
 										<c:otherwise>
 											<li><a
-												href="<%=base %>BookServlet?action=showPasgeBook&pageNew=${i}&ausername=${ausername  }">${i }</a>
+												href="http://localhost/Book/showBookHandler/${i}">${i }</a>
 											</li>
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
 
 
-								<c:if test="${pb.pageNew<pb.pages }">
+								<c:if test="${pb.pageNow<pb.pages }">
 									<li><a
-										href="<%=base %>BookServlet?action=showPasgeBook&pageNew=${pb.pageNew+1 }&ausername=${ausername  }"
+										href="http://localhost/Book/showBookHandler/${pb.pageNow+1 }"
 										aria-label="Previous"><span aria-hidden="ture">下一页</span></a>
 									</li>
 								</c:if>
 
 								 
 								<li><a
-									href="<%=base %>BookServlet?action=showPasgeBook&pageNew=${pb.pages}&ausername=${ausername  }">尾页
+									href="http://localhost/Book/showBookHandler/${pb.pages}">尾页
 								</a>
 								</li>
 								</p>

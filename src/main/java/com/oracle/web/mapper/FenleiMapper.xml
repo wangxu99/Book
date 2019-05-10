@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.oracle.web.mapper.FenleiMapper">
   <resultMap id="BaseResultMap" type="com.oracle.web.bean.Fenlei">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
+    <id column="fid" jdbcType="INTEGER" property="fid" />
+    <result column="fname" jdbcType="VARCHAR" property="fname" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -64,7 +64,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name
+    fid, fname
   </sql>
   <select id="selectByExample" parameterType="com.oracle.web.bean.FenleiExample" resultMap="BaseResultMap">
     select
@@ -84,11 +84,11 @@
     select 
     <include refid="Base_Column_List" />
     from fenlei
-    where id = #{id,jdbcType=INTEGER}
+    where fid = #{fid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from fenlei
-    where id = #{id,jdbcType=INTEGER}
+    where fid = #{fid,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.oracle.web.bean.FenleiExample">
     delete from fenlei
@@ -97,25 +97,25 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.oracle.web.bean.Fenlei">
-    insert into fenlei (id, name)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
+    insert into fenlei (fid, fname)
+    values (#{fid,jdbcType=INTEGER}, #{fname,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.oracle.web.bean.Fenlei">
     insert into fenlei
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
+      <if test="fid != null">
+        fid,
       </if>
-      <if test="name != null">
-        name,
+      <if test="fname != null">
+        fname,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
+      <if test="fid != null">
+        #{fid,jdbcType=INTEGER},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="fname != null">
+        #{fname,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -128,11 +128,11 @@
   <update id="updateByExampleSelective" parameterType="map">
     update fenlei
     <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
+      <if test="record.fid != null">
+        fid = #{record.fid,jdbcType=INTEGER},
       </if>
-      <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
+      <if test="record.fname != null">
+        fname = #{record.fname,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -141,8 +141,8 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update fenlei
-    set id = #{record.id,jdbcType=INTEGER},
-      name = #{record.name,jdbcType=VARCHAR}
+    set fid = #{record.fid,jdbcType=INTEGER},
+      fname = #{record.fname,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -150,15 +150,15 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.oracle.web.bean.Fenlei">
     update fenlei
     <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+      <if test="fname != null">
+        fname = #{fname,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where fid = #{fid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.oracle.web.bean.Fenlei">
     update fenlei
-    set name = #{name,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    set fname = #{fname,jdbcType=VARCHAR}
+    where fid = #{fid,jdbcType=INTEGER}
   </update>
 </mapper>

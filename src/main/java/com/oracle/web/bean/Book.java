@@ -1,11 +1,11 @@
 package com.oracle.web.bean;
 
 public class Book {
-    private Integer id;
+    private Integer bid;
 
     private Integer flid;
 
-    private String name;
+    private String bname;
 
     private String money;
 
@@ -15,12 +15,12 @@ public class Book {
 
     private Integer stock;
 
-    public Integer getId() {
-        return id;
+    public Integer getBid() {
+        return bid;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setBid(Integer bid) {
+        this.bid = bid;
     }
 
     public Integer getFlid() {
@@ -31,12 +31,12 @@ public class Book {
         this.flid = flid;
     }
 
-    public String getName() {
-        return name;
+    public String getBname() {
+        return bname;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setBname(String bname) {
+        this.bname = bname == null ? null : bname.trim();
     }
 
     public String getMoney() {
@@ -70,4 +70,11 @@ public class Book {
     public void setStock(Integer stock) {
         this.stock = stock;
     }
+
+	@Override
+	public String toString() {
+		return "Book [bid=" + bid + ", flid=" + flid + ", bname=" + bname + ", money=" + money + ", press=" + press
+				+ ", author=" + author + ", stock=" + stock + "]";
+	}
+    
 }
