@@ -61,7 +61,7 @@ h3{
 		<div id="book2">
 
 			<li><span class="ui-icon ui-icon-plus"></span> <a
-				href="BookServlet?action=showaddbook&ausername=${ausername  }" target="right"><font size="4" face="大篆"
+				href="addBookUl" target="right"><font size="4" face="大篆"
 					color="#337AB7">添加图书</font></a></li>
 
 

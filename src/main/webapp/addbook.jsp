@@ -17,29 +17,7 @@
 <script type="text/javascript" src="js/ajax.js"></script>
 <script>
 	$(function() {
-		var flname = document.register.flname;
-
-		ajax({
-			method : "POST",
-			url : "FenleiServlet",
-			params : "action=showOne2",
-			type : "json",
-			success : function(content) {
-
-				for (var i = 0; i < content.length; i++) {
-
-					var name = content[i];
-
-					var opt = document.createElement("option");
-					opt.value = name.id;
-					opt.innerHTML = name.name;
-					flId.appendChild(opt);
-
-				}
-
-			}
-		});
-
+	
 		$("#fm").bootstrapValidator({
 
 			feedbackIcons : {
@@ -49,7 +27,7 @@
 
 			},
 			fields : {
-				name : {
+				bname : {
 					validators : {
 
 						notEmpty : {
@@ -64,17 +42,17 @@
 
 						// threshold :  6 , 有6字符以上才发送ajax请求，（input中输入一个字符，插件会向服务器发送一次，设置限制，6字符以上才开始）
 						remote : {//ajax验证。server result:{"valid",true or false} 向服务发送当前input name值，获得一个json数据。例表示正确：{"valid",true}  
-							url : "BookServlet",//验证地址
-							 //提示消息
+							url : "yanzhengAddBook",//验证地址
+							//提示消息
+							message : '该分类下已存在此图书',
 							delay : 500,//每输入一个字符，就发ajax请求，服务器压力还是太大，设置2秒发送一次ajax（默认输入一个字符，提交一次，服务器压力太大）
-							type : 'POST',//请求方式
+							type : 'GET',//请求方式
 
 							//自定义提交数据，默认值提交当前input value
 							data : function(validator) {
 								return {
-									action : "yanzheng",
-									name : $("#name").val(),
-									flId: $("#flId").val()
+									bname : $("#bname").val(),
+									flid : $("#flid").val()
 								}
 							}
 
@@ -94,7 +72,7 @@
 					}
 
 				},
-				flId : {
+				flid : {
 
 					validators : {
 
@@ -102,7 +80,7 @@
 
 							callback : function(value, validator) {
 
-								if (flId.value == "----请选择----") {
+								if (flid.value == 0) {
 									return {
 										valid : false,
 
@@ -126,7 +104,7 @@
 						}
 					}
 				},
-				author: {
+				author : {
 					validators : {
 
 						notEmpty : {
@@ -150,105 +128,109 @@
 </script>
 <style>
 #div1 {
- 
 	margin-top: 20px;
-   border:1px solid #D7E4E8; 
+	border: 1px solid #D7E4E8;
 }
 
 form {
 	margin-top: 20px;
 }
 
-
 .btn {
 	margin-top: 30px;
 }
-h3{
-margin-top: 30px;
+
+h3 {
+	margin-top: 30px;
 }
-label{
-   font-size: 15px;
+
+label {
+	font-size: 15px;
 }
-hr{
-border: 1px solid #D7E4E8;
- width: 400px;
+
+hr {
+	border: 1px solid #D7E4E8;
+	width: 400px;
 }
-#div9{
-/* 	background-image: url("tu/t6.jpg"); */
-	background-size:cover;
+
+#div9 {
+	/* 	background-image: url("tu/t6.jpg"); */
+	background-size: cover;
 	height: 800px;
 	margin-top: 20px;
 }
- 
 </style>
-<body  >
-	<div class="container-fluid"  id="div9">
+<body>
+	<div class="container-fluid" id="div9">
 		<!--  <marquee align="texttop" behavior="slide" scrollamount="60"
 			direction="up">-->
-			<div class="col col-md-5 col-md-offset-2" id="div1">
+		<div class="col col-md-5 col-md-offset-2" id="div1">
 
-				<h2 class="text-center text-info">添加图书</h2>
-             <hr >
-				<form action="BookServlet?action=add&ausername=${ausername  }" method="post" name="register"
-					id="fm" class="form-horizontal">
+			<h2 class="text-center text-info">添加图书</h2>
+			<hr>
+			<form action="addBook" method="post" name="register" id="fm" class="form-horizontal">
 
-					<div class="form-group">
-						<label class="col-sm-3 col-sm-offset-2 control-label text-info">选择分类:</label>
-						<div class="col-sm-4">
-							<select name="flId" id="flId"
-								style="color: #265C88;" class="form-control input-sm">
-								<option>----请选择----</option>
-							</select>
-						</div>
+				<div class="form-group">
+					<label class="col-sm-3 col-sm-offset-2 control-label text-info">选择分类:</label>
+					<div class="col-sm-4">
+						<select name="flid" id="flid" style="color: #265C88;"
+							class="form-control input-sm">
+							<option value="0">----请选择----</option>
+							<c:forEach items="${flist }" var="s">
+								<option value="${s.fid }">${s.fname }</option>
+							</c:forEach>
+						</select>
 					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label col-sm-offset-2 text-info">图书名称:</label>
-						<div class="col-sm-4">
-							<input type="text" name="name" class="form-control input-sm" id="name" />
-						</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label col-sm-offset-2 text-info">图书名称:</label>
+					<div class="col-sm-4">
+						<input type="text" name="bname" class="form-control input-sm"
+							id="name" />
+					</div>
 
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label col-sm-offset-2 text-info">图书价格:</label>
+					<div class="col-sm-4">
+						<input type="text" name="money" class="form-control input-sm" />
 					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label col-sm-offset-2 text-info">图书价格:</label>
-						<div class="col-sm-4">
-							<input type="text" name="money" class="form-control input-sm" />
-						</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label col-sm-offset-2 text-info">出版社:</label>
+					<div class="col-sm-4">
+						<input type="text" name="press" class="form-control input-sm" />
 					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label col-sm-offset-2 text-info">出版社:</label>
-						<div class="col-sm-4">
-							<input type="text" name="press" class="form-control input-sm" />
-						</div>
-					</div>
-				 
-					<div class="form-group">
-						<label class="col-sm-3 control-label col-sm-offset-2 text-info">作者:</label>
-						<div class="col-sm-4">
-							<input type="text" name="author" class="form-control input-sm" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label col-sm-offset-2 text-info">库存:</label>
-						<div class="col-sm-4">
-							<input type="text"  name="stock" class="form-control input-sm" />
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-sm-2  col-sm-offset-4 ">
-							<button type="submit" class="btn btn-success">
-								添加 <span class="glyphicon glyphicon-ok"></span>
-							</button>
-						</div>
-						<div class="col-sm-2  col-sm-offset-1">
-							<button type="reset" class="btn btn-info">
-								重置 <span class="glyphicon glyphicon-repeat"></span>
-							</button>
-						</div>
-					</div>
-                  <br>
-				</form>
+				</div>
 
-			</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label col-sm-offset-2 text-info">作者:</label>
+					<div class="col-sm-4">
+						<input type="text" name="author" class="form-control input-sm" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label col-sm-offset-2 text-info">库存:</label>
+					<div class="col-sm-4">
+						<input type="text" name="stock" class="form-control input-sm" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-2  col-sm-offset-4 ">
+						<button type="submit" class="btn btn-success">
+							添加 <span class="glyphicon glyphicon-ok"></span>
+						</button>
+					</div>
+					<div class="col-sm-2  col-sm-offset-1">
+						<button type="reset" class="btn btn-info">
+							重置 <span class="glyphicon glyphicon-repeat"></span>
+						</button>
+					</div>
+				</div>
+				<br>
+			</form>
+
+		</div>
 
 		<!-- </marquee>-->
 	</div>

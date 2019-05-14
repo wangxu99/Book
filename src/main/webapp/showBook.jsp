@@ -1,11 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	String path = request.getContextPath();
-	String base = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/"
-			+ path + "/";
-%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,14 +18,8 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 
 <title>查看图书</title>
-<script type="text/javascript" src="js/jquery-1.8.3.js"></script>
 
-<script type="text/javascript" src="js/ajax.js"></script>
 <script>
- 
-
-
- 
 	window.onload = function() {
 		var chek = document.getElementsByName("ids");
 
@@ -112,11 +102,23 @@
 
 				var flage = confirm("你确定删除所勾选的图书吗？");
 				if (flage == true) {//确定
-					window.location.href = "<%=base%>BookServlet?action=delete&ids="+ str + "&pageNow=${pb.pageNow}&ausername=${ausername  }";
+					//拿到请求地址
+					var $url = "http://localhost/Book/deleteBook/" + str
+							+ "/${pb.pageNow}";
+
+					//alert($url);
+					//拿到表单
+					$("#deleteForm").attr("action", $url);
+
+					//提交表单
+					$("#deleteForm").submit();
+
+					return false;
+					//window.location.href = "http://localhost/Book/deleteBook/" + str + "/${pb.pageNow}";
 
 				} else {//取消
 
-					window.location.href = "<%=base%>BookServlet?action=showPasgeBook&pageNow=${pb.pageNow}&ausername=${ausername  }";
+					window.location.href = "http://localhost/Book/showBookHandler/${pb.pageNow}";
 
 				}
 			}
@@ -141,8 +143,8 @@
 				alert("请至少选一项");
 				return;
 
-			} else {    
-				
+			} else {
+
 				var str = "";
 
 				for (var i = 0; i < chek.length; i++) {
@@ -154,56 +156,30 @@
 					}
 				}
 				str = str.slice(0, str.length - 1);
-				 
 
 				var flag = confirm("你确定导出所勾选的图书信息吗？");
 				if (flag == true) {//确定
-					window.location.href = "<%=base%>OutPutBookServlet?action=outids&ids="+str;
+					window.location.href = " OutPutBookServlet?action=outids&ids="
+							+ str;
 
 				} else {//取消
-					window.location.href = "<%=base%>BookServlet?action=showPasgeBook&pageNow=${pb.pageNow}&ausername=${ausername  }";
+					window.location.href = "http://localhost/Book/showBookHandler/${pb.pageNow}";
 				}
 			}
 		};
 		//导出全部
-		var outAll=document.getElementById("outAll");
+		var outAll = document.getElementById("outAll");
 		outAll.onclick = function() {
 			var flag = confirm("你确定导出全部的图书信息吗？");
 			if (flag == true) {//确定
-				window.location.href = "<%=base%>OutPutBookServlet?action=all";
-			 
-		} else {//取消
-			window.location.href = "<%=base%>BookServlet?action=showPasgeBook&pageNow=${pb.pageNow }&ausername=${ausername  }";
-		}
-		}
-		
-		var flname = document.f1.findflname;
+				window.location.href = " OutPutBookServlet?action=all";
 
-		ajax({
-			method : "POST",
-			url : "FenleiServlet",
-			params : "action=showOne2",
-			type : "json",
-			success : function(content) {
-
-				for (var i = 0; i < content.length; i++) {
-
-					var name = content[i];
-
-					var opt = document.createElement("option");
-					opt.value = name.id;
-					opt.innerHTML = name.name;
-					flname.appendChild(opt);
-
-				}
-
+			} else {//取消
+				window.location.href = "http://localhost/Book/showBookHandler/${pb.pageNow}";
 			}
-		});
-	
-		
-	};
- 
+		}
 
+	};
 </script>
 <style>
 .col {
@@ -261,8 +237,8 @@
 	<div class="container-fluid" id="div1">
 		<c:if test="${!empty mag }">
 			<script>
-			alert("${mag }");
-		</script>
+				alert("${mag }");
+			</script>
 		</c:if>
 		<c:remove var="mag" />
 		<div class="col col-md-5 " id="div2">
@@ -276,17 +252,21 @@
 					data-toggle="dropdown">高级搜索<span class="caret"></span></a>
 					<ul class="dropdown-menu dropdown-menu-right" role="menu">
 						<li>
-							<form action="BookServlet" class="form-horizontal" id="f1" name="f1">
-                               <input type="hidden" name="action" value="gaojifindbook"> 
-                                 <input type="hidden" name="ausername" value="${ausername  }"> 
+							<form action="BookServlet" class="form-horizontal" id="f1"
+								name="f1">
+								<input type="hidden" name="action" value="gaojifindbook">
+								<input type="hidden" name="ausername" value="${ausername  }">
 								<div class="control-group   ">
-									<br>
-									<label class="col-sm-4  control-label ">选择分类： </label>
+									<br> <label class="col-sm-4  control-label ">选择分类：
+									</label>
 									<div class="controls col-sm-6 ">
-										<select name="findflId" class="form-control  input-sm" id="findflname">
+										<select name="flid" id="flid" style="color: #265C88;"
+											class="form-control input-sm">
 											<option value="0">----请选择----</option>
-											 
-										</select><br>
+											<c:forEach items="${flist }" var="s">
+												<option value="${s.fid }">${s.fname }</option>
+											</c:forEach>
+										</select> <br>
 									</div>
 								</div>
 
@@ -308,11 +288,12 @@
 								<div class="control-group   ">
 									<label class="col-sm-4 control-label ">作者:</label>
 									<div class="controls  col-sm-6">
-										<input type="text" name="author" class="form-control  input-sm" /><br>
+										<input type="text" name="author"
+											class="form-control  input-sm" /><br>
 									</div>
 								</div>
 
-							<!-- 	<div class="control-group    ">
+								<!-- 	<div class="control-group    ">
 									<label class="control-label col-sm-4 "> 库存:</label>
 									<div class="controls  col-sm-6">
 										<input type="text" name="stock" class="form-control  input-sm" /><br>
@@ -325,8 +306,7 @@
 										<button type="submit" class="btn   btn-info ">
 											<span class="glyphicon glyphicon-search"></span> 开始搜索
 										</button>
-										<br>
-										<br>
+										<br> <br>
 									</div>
 								</div>
 
@@ -339,7 +319,7 @@
 				<table id="t">
 					<tr height="6%">
 						<td align="center" colspan=2><br> <font size="7"
-							color="#337AB7" face="宋体"><strong>查看图书</strong></font>  </td>
+							color="#337AB7" face="宋体"><strong>查看图书</strong></font></td>
 					</tr>
 
 					<tr align="center">
@@ -368,25 +348,35 @@
 										<td>${s.stock}</td>
 										<td><input type="checkbox" name="ids" value="${s.bid}" /></td>
 										<td><a
-											href='<%=base %>BookServlet?action=showOne&id=${s.bid }&pageNow=${pb.pageNow }'>
+											href='http://localhost/Book/showOneBook/${s.bid }/${pb.pageNow }'>
 												<input type="button" value="修改" class="btn btn-info btn-sm" />
 										</a></td>
 									</tr>
 								</c:forEach>
 							</table>
+						</td>
+					</tr>
 
-               
-				<c:if  test="${showPesge=='gaoji'}" > 
-							<p>第${pb.pageNow }页/共${pb.pages } 
-							<ul class="pagination ">
+					<tr>
+						<td>
+							<form action="" method="post" id="deleteForm">
+								<input type="hidden" name="_method" value="DELETE">
+							</form>
+						</td>
+					</tr>
 
-								<li><a
-									href="${pb.url }&pageNow=1">首页</a>
+					<tr>
+						<td align="center"><c:if test="${showPesge=='gaoji'}">
+								<p>
+									第${pb.pageNow }页/共${pb.pages }
+									<ul class="pagination ">
+
+									<li><a href="${pb.url }&pageNow=1">首页</a>
 									</li>
 								<c:if test="${pb.pageNow>1 }">
 									<li><a aria-label="Previous"
-										href="${pb.url }&pageNow=${pb.pageNow-1 }"><span
-											aria-hidden="ture">上一页</span></a></li>
+											href="${pb.url }&pageNow=${pb.pageNow-1 }"><span
+												aria-hidden="ture">上一页</span></a></li>
 								</c:if>
 
 								<!-- 分页2种情况
@@ -394,51 +384,45 @@
 			                   2.页数大于10
 			                         -->
 
-								<c:choose>
-									<c:when test="${pb.pages<=10 }">
-										<c:set var="begin" value="1"></c:set>
-										<c:set var="end" value="${pb.pages }"></c:set>
-									</c:when>
-									<c:otherwise>
-										<c:set var="begin" value="${pb.pageNow-5 }"></c:set>
-										<c:set var="end" value="${pb.pageNow+4 }"></c:set>
-										<c:if test="${begin<=1 }">
-											<c:set var="begin" value="1"></c:set>
-											<c:set var="end" value="10"></c:set>
-										</c:if>
-										<c:if test="${end>=pb.pages }">
-											<c:set var="begin" value="${pb.pages-9 }"></c:set>
-											<c:set var="end" value="${pb.pages}"></c:set>
-										</c:if>
-
-									</c:otherwise>
-								</c:choose>
-								<!-- 每页面显示10页数 -->
-
-								<c:forEach begin="${begin }" end="${end }" var="i">
 									<c:choose>
-										<c:when test="${pb.pageNow==i }">
-											<li class="active"><span>${i }</span></li>
+										<c:when test="${pb.pages<=10 }">
+											<c:set var="begin" value="1"></c:set>
+											<c:set var="end" value="${pb.pages }"></c:set>
 										</c:when>
 										<c:otherwise>
-											<li><a
-												href="${pb.url }&pageNow=${i}">${i }</a>
-											</li>
+											<c:set var="begin" value="${pb.pageNow-5 }"></c:set>
+											<c:set var="end" value="${pb.pageNow+4 }"></c:set>
+											<c:if test="${begin<=1 }">
+												<c:set var="begin" value="1"></c:set>
+												<c:set var="end" value="10"></c:set>
+											</c:if>
+											<c:if test="${end>=pb.pages }">
+												<c:set var="begin" value="${pb.pages-9 }"></c:set>
+												<c:set var="end" value="${pb.pages}"></c:set>
+											</c:if>
+
 										</c:otherwise>
 									</c:choose>
-								</c:forEach>
+									<!-- 每页面显示10页数 -->
+
+									<c:forEach begin="${begin }" end="${end }" var="i">
+										<c:choose>
+											<c:when test="${pb.pageNow==i }">
+												<li class="active"><span>${i }</span></li>
+											</c:when>
+											<c:otherwise>
+												<li><a href="${pb.url }&pageNow=${i}">${i }</a></li>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
 
 
-								<c:if test="${pb.pageNow<pb.pages }">
-									<li><a
-										href="${pb.url }&pageNow=${pb.pageNow+1 }"
-										aria-label="Previous"><span aria-hidden="ture">下一页</span></a>
-									</li>
-								</c:if>
-
-								 
-								<li><a
-									href="${pb.url }&pageNow=${pb.pages}">尾页
+									<c:if test="${pb.pageNow<pb.pages }">
+										<li><a href="${pb.url }&pageNow=${pb.pageNow+1 }"
+											aria-label="Previous"><span aria-hidden="ture">下一页</span></a>
+										</li>
+									</c:if>
+								<li><a href="${pb.url }&pageNow=${pb.pages}">尾页
 								</a>
 								</li>
 								</p>
@@ -447,15 +431,15 @@
 					  </c:if>
 					  <c:if test="${showPesge=='showBook'}"> 
 								<p>第${pb.pageNow }页/共${pb.pages } 
-							<ul class="pagination ">
+							
+								<ul class="pagination ">
 
-								<li><a
-									href="http://localhost/Book/showBookHandler/1">首页</a>
+								<li><a href="http://localhost/Book/showBookHandler/1">首页</a>
 									</li>
 								<c:if test="${pb.pageNow>1 }">
 									<li><a aria-label="Previous"
-										href="http://localhost/Book/showBookHandler/${pb.pageNow-1 }"><span
-											aria-hidden="ture">上一页</span></a></li>
+											href="http://localhost/Book/showBookHandler/${pb.pageNow-1 }"><span
+												aria-hidden="ture">上一页</span></a></li>
 								</c:if>
 
 								<!-- 分页2种情况
@@ -490,8 +474,7 @@
 											<li class="active"><span>${i }</span></li>
 										</c:when>
 										<c:otherwise>
-											<li><a
-												href="http://localhost/Book/showBookHandler/${i}">${i }</a>
+											<li><a href="http://localhost/Book/showBookHandler/${i}">${i }</a>
 											</li>
 										</c:otherwise>
 									</c:choose>
@@ -500,14 +483,14 @@
 
 								<c:if test="${pb.pageNow<pb.pages }">
 									<li><a
-										href="http://localhost/Book/showBookHandler/${pb.pageNow+1 }"
-										aria-label="Previous"><span aria-hidden="ture">下一页</span></a>
+											href="http://localhost/Book/showBookHandler/${pb.pageNow+1 }"
+											aria-label="Previous"><span aria-hidden="ture">下一页</span></a>
 									</li>
 								</c:if>
 
 								 
 								<li><a
-									href="http://localhost/Book/showBookHandler/${pb.pages}">尾页
+										href="http://localhost/Book/showBookHandler/${pb.pages}">尾页
 								</a>
 								</li>
 								</p>
@@ -519,6 +502,7 @@
 
 						</td>
 					</tr>
+	
 				</table>
 			</div>
 		</div>
