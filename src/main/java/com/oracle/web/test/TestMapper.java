@@ -35,6 +35,19 @@ public class TestMapper {
 	@Autowired
 	private BookTimeMapper fenleiMapper;
 	
+	@Autowired
+	private UserMapper userMapper;
+	
+	@Test
+	public void testAllUser(){
+		
+		List<User> list=this.userMapper.showByPage(0);
+		
+		for (User user : list) {
+			 System.out.println(user.toString());
+			}
+	}
+	
 	@Test
 	public void testAll() {
 		 PageHelper.startPage(1, 3);

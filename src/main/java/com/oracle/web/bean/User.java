@@ -70,4 +70,12 @@ public class User {
     public void setTouxiang(String touxiang) {
         this.touxiang = touxiang == null ? null : touxiang.trim();
     }
+
+	@Override
+	public String toString() {
+		return "User [uid=" + uid + ", uname=" + uname + ", username=" + username + ", password=" + password
+				+ ", phone=" + phone + ", regtime=" + regtime + ", touxiang=" + touxiang + "]";
+	}
+    
+    
 }
