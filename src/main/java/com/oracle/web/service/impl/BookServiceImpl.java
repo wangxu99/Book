@@ -59,18 +59,19 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	@Transactional
-	public int yanzhengAddBook(String bname, String flid) {
+	public Book yanzhengAddBook(String bname, String flid) {
 		// TODO Auto-generated method stub
 		BookExample example=new BookExample();
        	Criteria criteria = example.createCriteria();
        	criteria.andFlidEqualTo(Integer.parseInt(flid));
        	criteria.andBnameEqualTo(bname);
        	List<Book> list=this.bookMapper.selectByExample(example);
-       	int i=0;
-       	if(!list.isEmpty()){
-       		i=1;
-       	}
-		return i;
+        Book book=null;
+       	for (Book book1 : list) {
+			book=book1;
+		}
+       //	System.out.println(book);
+		return book;
 	}
 
 	@Override
@@ -79,6 +80,22 @@ public class BookServiceImpl implements BookService {
 		// TODO Auto-generated method stub
 		return this.bookMapper.insert(book);
 	}
+
+	@Override
+	@Transactional
+	public Book updateBookUl(Integer id) {
+		// TODO Auto-generated method stub
+		
+		return this.bookMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public void updateBook(Book book) {
+		// TODO Auto-generated method stub
+		this.bookMapper.updateByPrimaryKey(book);
+	}
+
+ 
 
  
 

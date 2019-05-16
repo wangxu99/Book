@@ -12,10 +12,15 @@ public interface BookService {
 
 	void deleteBook(String ids);
 
-	int yanzhengAddBook(String bname, String flid);
+	Book yanzhengAddBook(String bname, String flid);
 
 	int save(Book book);
 
+	Book updateBookUl(Integer id);
+
+	void updateBook(Book book);
+
+	 
 	
 
  

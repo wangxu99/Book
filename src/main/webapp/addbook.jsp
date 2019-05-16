@@ -13,8 +13,7 @@
 <script type="text/javascript" src="bootstrap/js/bootstrapValidator.js"></script>
 
 <title>添加图书</title>
-
-<script type="text/javascript" src="js/ajax.js"></script>
+ 
 <script>
 	$(function() {
 	

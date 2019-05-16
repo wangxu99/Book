@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.junit.runners.Parameterized.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -58,13 +59,13 @@ public class BookHandler {
 	       // 调用service进行查询
 	    	//System.out.println(userName);
 		 response.setContentType("text/html;charset=UTF-8");
-	       int i= this.bookService.yanzhengAddBook(bname,flid);
+	       Book b= this.bookService.yanzhengAddBook(bname,flid);
 	       
 	      // System.out.println(existUser);
 	        //获取response对象，向页面输出信息
 	       
 	       // 判断是否为空  
-	        if(i==0){
+	        if(b==null){
 	            //分类下图书不经存在，可以添加
 	          //  有异常则向上抛出	
 	        	response.getWriter().write("{\"valid\":\"true\"}");
@@ -104,22 +105,60 @@ public class BookHandler {
 	public String delete(@PathVariable(value="ids") String ids,@PathVariable(value = "pageNow") Integer pageNow) { 
            //System.out.println(ids);
 		this.bookService.deleteBook(ids);
-		return "redirect:/showBookHandler/1";
+		return "redirect:/showBookHandler/"+pageNow;
 
 	}
 	
 	
 	
-/*	@RequestMapping(value="/showOneBook/{id}/",method=RequestMethod.GET)
-   public String updateUl(@PathVariable(value="monsterId") Integer monsterId,HttpServletRequest request) {// 妖怪
+ 	@RequestMapping(value="/updateBookUl/{id}/{pageNow}",method=RequestMethod.GET)
+   public String updateUl(@PathVariable(value="id") Integer id,@PathVariable(value = "pageNow") Integer pageNow,HttpServletRequest request) {// 妖怪
 
 		 
-		List<School> slist = this.schoolService.slist();
-		request.setAttribute("slist", slist);
-		Monster  m = this.monsterService.showOne(monsterId);
-		// System.out.println(list.toString());
-		request.setAttribute("m", m);
-		return "update";
+ 	   List<Fenlei> flist=this.fenleiService.selectFenleiAll();
+       request.setAttribute("flist", flist);
+		Book  b = this.bookService.updateBookUl(id);
+		// System.out.println(b.toString());
+		request.setAttribute("b", b);
+		return "changeBook";
 
-	}*/
+	} 
+ 	
+ 	@RequestMapping(value="/updateBook",method=RequestMethod.PUT)
+	public String update(Book book,@RequestParam(value="pageNow") Integer pageNow) {// 妖怪
+
+		//System.out.println(monster.toString());
+		this.bookService.updateBook(book);
+
+		return "redirect:/showBookHandler/"+pageNow;
+	}
+ 	
+ 	 @RequestMapping(value="/yzupdateBook",method=RequestMethod.GET)
+		public void yzUpdateBook(@RequestParam(value="bname") String bname,@RequestParam(value="flid") String flid,@RequestParam(value="bid")Integer bid,HttpServletResponse response) throws IOException{
+	       // 调用service进行查询
+	    	//System.out.println(userName);
+		 response.setContentType("text/html;charset=UTF-8");
+	       Book  b= this.bookService.yanzhengAddBook(bname,flid);
+	       
+	     // System.out.println(b.toString());
+	        //获取response对象，向页面输出信息
+	        
+	       
+	       // 判断是否为空  
+	        if(b==null){
+	            //bid 一样没改变是一本书   ，可修改
+	          //b没空  该分类下没有该图书可添加	
+	        	 
+	        	response.getWriter().write("{\"valid\":\"true\"}");
+	        }else if(b.getBid().equals(bid)){
+	        	response.getWriter().write("{\"valid\":\"true\"}");
+	        }else{
+	            //分类下图书已存在，不能添加
+	         
+	        	 response.getWriter().write("{\"valid\":\"false\"}");
+	        	
+	        } 
+	     //   AJAX操作，不需要页面跳转
+	         
+	   }
 }

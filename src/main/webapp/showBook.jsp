@@ -348,7 +348,7 @@
 										<td>${s.stock}</td>
 										<td><input type="checkbox" name="ids" value="${s.bid}" /></td>
 										<td><a
-											href='http://localhost/Book/showOneBook/${s.bid }/${pb.pageNow }'>
+											href='http://localhost/Book/updateBookUl/${s.bid }/${pb.pageNow }'>
 												<input type="button" value="修改" class="btn btn-info btn-sm" />
 										</a></td>
 									</tr>
