@@ -240,4 +240,12 @@
       touxiang = #{touxiang,jdbcType=VARCHAR}
     where uid = #{uid,jdbcType=INTEGER}
   </update>
+   <!--查看有多少条-->
+   <select id="selectCount" resultType="java.lang.Integer">
+    SELECT COUNT(*) FROM User
+  </select>
+  <!--分页-->
+  <select id="showByPage" parameterType="int" resultType="user">
+    select * from user order by uid desc limit #{index},8
+  </select>
 </mapper>
