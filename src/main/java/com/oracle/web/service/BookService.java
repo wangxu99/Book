@@ -16,7 +16,9 @@ public interface BookService {
 
 	int save(Book book);
 
-	List<Book> list();
+	
+
+ 
 
  
 

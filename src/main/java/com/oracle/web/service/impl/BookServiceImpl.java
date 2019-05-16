@@ -74,9 +74,12 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
+	@Transactional
 	public int save(Book book) {
 		// TODO Auto-generated method stub
 		return this.bookMapper.insert(book);
 	}
+
+ 
 
 }
