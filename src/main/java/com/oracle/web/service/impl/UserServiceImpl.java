@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
 		
 		int pageSize = 8;
 
-		pb.setpageNow(pageNow);
+		pb.setPageNow(pageNow);
 
 		pb.setPageSize(pageSize);
 		

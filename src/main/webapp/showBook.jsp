@@ -252,11 +252,12 @@
 					data-toggle="dropdown">高级搜索<span class="caret"></span></a>
 					<ul class="dropdown-menu dropdown-menu-right" role="menu">
 						<li>
-							<form action="BookServlet" class="form-horizontal" id="f1"
-								name="f1">
-								<input type="hidden" name="action" value="gaojifindbook">
-								<input type="hidden" name="ausername" value="${ausername  }">
-								<div class="control-group   ">
+							<form action="http://localhost/Book/GaoJiSs" class="form-horizontal" id="f1"
+								name="f1" method="GET">
+								
+								<!-- 
+								<input type="hidden" name="_method" value="PUT">  -->
+								<div class="control-group">
 									<br> <label class="col-sm-4  control-label ">选择分类：
 									</label>
 									<div class="controls col-sm-6 ">
@@ -273,7 +274,7 @@
 								<div class="control-group  ">
 									<label class="col-sm-4  control-label  ">书名:</label>
 									<div class="controls col-sm-6 ">
-										<input type="text" name="name" class="form-control  input-sm" /><br>
+										<input type="text" name="bname" class="form-control  input-sm" /><br>
 									</div>
 								</div>
 
@@ -293,13 +294,13 @@
 									</div>
 								</div>
 
-								<!-- 	<div class="control-group    ">
+							 	<div class="control-group ">
 									<label class="control-label col-sm-4 "> 库存:</label>
 									<div class="controls  col-sm-6">
 										<input type="text" name="stock" class="form-control  input-sm" /><br>
 									</div>
-								</div> -->
-
+								</div> 
+                               <input type="hidden" name="pageNow" value="1">
 								<div class="control-group  ">
 
 									<div class="controls ss">
@@ -366,11 +367,10 @@
 					</tr>
 
 					<tr>
-						<td align="center"><c:if test="${showPesge=='gaoji'}">
-								<p>
-									第${pb.pageNow }页/共${pb.pages }
-									<ul class="pagination ">
-
+						<td align="center">
+						<c:if test="${showPesge=='gao'}">
+								  第${pb.pageNow }页/共${pb.pages }
+									<ul class="pagination "> 
 									<li><a href="${pb.url }&pageNow=1">首页</a>
 									</li>
 								<c:if test="${pb.pageNow>1 }">
@@ -425,9 +425,8 @@
 								<li><a href="${pb.url }&pageNow=${pb.pages}">尾页
 								</a>
 								</li>
-								</p>
-				
-							</ul>
+								 </ul>
+								 
 					  </c:if>
 					  <c:if test="${showPesge=='showBook'}"> 
 								<p>第${pb.pageNow }页/共${pb.pages } 

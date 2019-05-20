@@ -20,6 +20,8 @@ public interface BookService {
 
 	void updateBook(Book book);
 
+	PageBean<BookAndFenlei> showBookPesgeGaoJi(Integer pageNow, Book book);
+
 	 
 	
 

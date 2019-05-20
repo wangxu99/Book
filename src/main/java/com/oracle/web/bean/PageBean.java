@@ -8,18 +8,37 @@ public class PageBean<T> {
 	    private int counts;  
 	    private int pageSize; 
 	    private List<T> beanList;
-		
+	    private String url;
+	    
+		public PageBean(Integer pageNow, int counts, int pageSize, List<T> beanList, String url) {
+			super();
+			this.pageNow = pageNow;
+			this.counts = counts;
+			this.pageSize = pageSize;
+			this.beanList = beanList;
+			this.url = url;
+		}
+
 		public int getPages() {
 			int pages=this.counts/this.pageSize;
 			return (this.counts%this.pageSize==0)?pages:pages+1;
 		}
 		
-		public Integer getpageNow() {
+		public String getUrl() {
+			return url;
+		}
+
+		public void setUrl(String url) {
+			this.url = url;
+		}
+
+		public Integer getPageNow() {
 			return pageNow;
 		}
-		public void setpageNow(Integer pageNow) {
+
+		public void setPageNow(Integer pageNow) {
 			this.pageNow = pageNow;
-		}
+		} 
 		public int getCounts() {
 			return counts;
 		}
@@ -42,21 +61,15 @@ public class PageBean<T> {
 			super();
 			// TODO Auto-generated constructor stub
 		}
-	
-
-		public PageBean(Integer pageNow, int counts, int pageSize, List<T> beanList) {
-			super();
-			this.pageNow = pageNow;
-			this.counts = counts;
-			this.pageSize = pageSize;
-			this.beanList = beanList;
-		}
 
 		@Override
 		public String toString() {
 			return "PageBean [pageNow=" + pageNow + ", counts=" + counts + ", pageSize=" + pageSize + ", beanList="
-					+ beanList + "]";
+					+ beanList + ", url=" + url + "]";
 		}
+	
+ 
+	 
 	 
 	     
 }

@@ -18,7 +18,7 @@ public interface BookMapper {
     int insertSelective(Book record);
 
     List<Book> selectByExample(BookExample example);
-
+    List<BookAndFenlei> selectByGji(Book book);
     Book selectByPrimaryKey(Integer bid);
 
     int updateByExampleSelective(@Param("record") Book record, @Param("example") BookExample example);
