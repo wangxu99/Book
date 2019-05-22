@@ -1,14 +1,36 @@
 package com.oracle.web.controller;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
 import org.junit.runners.Parameterized.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +43,7 @@ import com.oracle.web.bean.Fenlei;
 import com.oracle.web.bean.PageBean;
 import com.oracle.web.service.BookService;
 import com.oracle.web.service.FenleiService;
+import com.oracle.web.util.DownUtils;
 
 @Controller
 @Scope(value = "prototype")
@@ -40,8 +63,9 @@ public class BookHandler {
 		 * if (pageNow == null || pageNow < 1) { pageNow = 1; }
 		 */
 		PageBean<BookAndFenlei> pb = this.bookService.showBookPesgeAll(pageNow);
-		/*List<BookAndFenlei> list = pb.getBeanList();
-		
+		/*
+		 * List<BookAndFenlei> list = pb.getBeanList();
+		 * 
 		 * for (BookAndFenlei bookAndFenlei : list) {
 		 * System.out.println(bookAndFenlei.toString()); }
 		 */
@@ -56,45 +80,46 @@ public class BookHandler {
 
 	// 图书高级搜索
 	@RequestMapping(value = "/GaoJiSs", method = RequestMethod.GET)
-	public String GaoJiSs(Book book,@RequestParam(value = "pageNow") Integer pageNow, HttpServletRequest request) {
-		if (pageNow == null || pageNow < 1) { pageNow = 1; }
-		PageBean<BookAndFenlei> pb = this.bookService.showBookPesgeGaoJi(pageNow,book);
-		 
+	public String GaoJiSs(Book book, @RequestParam(value = "pageNow") Integer pageNow, HttpServletRequest request) {
+		if (pageNow == null || pageNow < 1) {
+			pageNow = 1;
+		}
+		PageBean<BookAndFenlei> pb = this.bookService.showBookPesgeGaoJi(pageNow, book);
+
 		List<BookAndFenlei> list = pb.getBeanList();
-		   String url=this.getUrl2(request);
-          pb.setUrl(url);
+		String url = this.getUrl2(request);
+		pb.setUrl(url);
 		List<Fenlei> flist = this.fenleiService.selectFenleiAll();
 		request.setAttribute("flist", flist);
 		request.setAttribute("pb", pb);
 		request.setAttribute("showPesge", "gao");// 控制页面跳转
-		 
-		
+
 		return "showBook";
 	}
-	 private String getUrl2(HttpServletRequest req) {
-			// TODO Auto-generated method stub
-			 String url=this.getUrl(req);
-			 int index=url.lastIndexOf("&pageNow=");
-			 if(index==-1){
-				 return url;
-			 }
-			 url=url.substring(0, index);
-			 System.out.println(url);
+
+	private String getUrl2(HttpServletRequest req) {
+		// TODO Auto-generated method stub
+		String url = this.getUrl(req);
+		int index = url.lastIndexOf("&pageNow=");
+		if (index == -1) {
 			return url;
 		}
+		url = url.substring(0, index);
+		System.out.println(url);
+		return url;
+	}
 
-		private String getUrl(HttpServletRequest req) {
-			// TODO Auto-generated method stub
-			 String path=req.getContextPath();
-			 System.out.println(path);
-			 String servlet=req.getServletPath();
-			 System.out.println(servlet);
-			 String param=req.getQueryString();
-			 System.out.println(param);
-			 System.out.println(path+servlet+"?"+param);
-			return path+servlet+"?"+param;
-		}
-	 
+	private String getUrl(HttpServletRequest req) {
+		// TODO Auto-generated method stub
+		String path = req.getContextPath();
+		System.out.println(path);
+		String servlet = req.getServletPath();
+		System.out.println(servlet);
+		String param = req.getQueryString();
+		System.out.println(param);
+		System.out.println(path + servlet + "?" + param);
+		return path + servlet + "?" + param;
+	}
 
 	// 添加图书校验
 	@RequestMapping(value = "/yanzhengAddBook", method = RequestMethod.GET)
@@ -208,4 +233,90 @@ public class BookHandler {
 		// AJAX操作，不需要页面跳转
 
 	}
+
+	// 导出图书
+	@RequestMapping(value = "/outPutBook/{ids}", method = RequestMethod.GET)
+	public void
+	outPutBook(@PathVariable(value = "ids") String ids1,HttpServletResponse response) throws IOException {
+		 
+		List<BookAndFenlei> list = null;
+		String key = "";
+		if (ids1.equals("a")) {//传入a 表示导出全部
+			
+			list = this.bookService.outPutBookAll();
+			key = "全部";
+
+		}else{ 
+			//System.out.println(ids1);
+			list = this.bookService.outPutBookIds(ids1);
+			key = "勾选";
+
+		}
+		//创件一个工作蒲
+		HSSFWorkbook Workbook = new HSSFWorkbook();
+		//创建一个工作表
+		HSSFSheet sheet = Workbook.createSheet(key + "图书信息表");
+          
+		sheet.setColumnWidth(7, 15 * 256); //设定列宽度
+		//设置样式
+		HSSFCellStyle style = Workbook.createCellStyle();
+		style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+		HSSFFont font = Workbook.createFont();
+		font.setBold(true);
+		font.setColor(HSSFColor.DARK_RED.index);
+		style.setFont(font);
+		String[] title = { "编号", "分类编号", "图书名", "图书价格", "出版社", "作者", "库存" };
+		HSSFRow row = sheet.createRow(0);//从0开始
+		for (int i = 0; i < title.length; i++) {
+			HSSFCell cell = row.createCell(i);
+			cell.setCellStyle(style);
+			cell.setCellValue(title[i]);
+		}
+		HSSFCellStyle style1 = Workbook.createCellStyle();
+		style1.setAlignment(HSSFCellStyle.ALIGN_CENTER);// 居中
+		// 设置字体样式
+		for (int i = 0; i < list.size(); i++) { 
+
+			HSSFRow row1 = sheet.createRow(i + 1);
+			BookAndFenlei book = list.get(i);
+
+			HSSFCell cell1 = row1.createCell(0);
+			cell1.setCellValue(book.getBid());
+
+			HSSFCell cell2 = row1.createCell(1);
+			cell2.setCellValue(book.getFenlei().getFname());
+
+			HSSFCell cell3 = row1.createCell(2);
+			cell3.setCellValue(book.getBname());
+
+			HSSFCell cell4 = row1.createCell(3);
+			cell4.setCellValue(book.getMoney());
+
+			HSSFCell cell5 = row1.createCell(4);
+			cell5.setCellValue(book.getPress());
+
+			HSSFCell cell6 = row1.createCell(5);
+			cell6.setCellValue(book.getAuthor());
+
+			HSSFCell cell7 = row1.createCell(6);
+			cell7.setCellValue(book.getStock());
+
+			cell1.setCellStyle(style1);
+			cell2.setCellStyle(style1);
+			cell3.setCellStyle(style1);
+			cell4.setCellStyle(style1);
+			cell5.setCellStyle(style1);
+			cell6.setCellStyle(style1);
+			cell7.setCellStyle(style1);
+
+		}
+		 
+		 String fname = key +"图书信息表.xls"; 
+		response.setContentType("application/octet-stream");
+		response.setHeader("Content-disposition", "attachment;filename="+new String(fname.getBytes("UTF-8"), "iso-8859-1"));
+		response.flushBuffer();
+		 Workbook.write(response.getOutputStream());
+		 
+	}
+
 }

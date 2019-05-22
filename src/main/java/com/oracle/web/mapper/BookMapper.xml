@@ -91,6 +91,7 @@
 			order by ${orderByClause}
 		</if>
 	</select>
+	<!-- 自定义 高级搜索 -->
 	<select id="selectByGji" parameterType="com.oracle.web.bean.Book" resultMap="BookAndFenlei">
 		 select * from book,fenlei 
   <where>
@@ -115,6 +116,7 @@
   </where>
        And book.flid=fenlei.fid  order by book.bid desc
 	</select>
+	
 	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
 		resultMap="BaseResultMap">
 		select
@@ -122,6 +124,20 @@
 		from book
 		where bid = #{bid,jdbcType=INTEGER}
 	</select>
+
+  <select id="selectOutPutIds"  parameterType="list" resultMap="BookAndFenlei">	<!-- 自定义 选择导出 -->
+		select * from book,fenlei 
+    
+     <where>
+		book.flid=fenlei.fid and bid in
+		<foreach collection="list" item="id" open="(" separator="," close=")" >
+		     #{id}
+	 </foreach>
+	 
+   </where> 
+		 order by book.bid desc
+	</select>
+	
 	<!-- 王旭新增 分页查询book和分类名 -->
 	<select id="selectBookAll" resultMap="BookAndFenlei">
 		select * from book,fenlei where book.flid=fenlei.fid order

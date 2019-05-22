@@ -22,6 +22,10 @@ public interface BookService {
 
 	PageBean<BookAndFenlei> showBookPesgeGaoJi(Integer pageNow, Book book);
 
+	List<BookAndFenlei> outPutBookAll();
+
+	List<BookAndFenlei> outPutBookIds(String ids1);
+
 	 
 	
 

@@ -159,8 +159,8 @@
 
 				var flag = confirm("你确定导出所勾选的图书信息吗？");
 				if (flag == true) {//确定
-					window.location.href = " OutPutBookServlet?action=outids&ids="
-							+ str;
+				 
+					window.location.href = "http://localhost/Book/outPutBook/" + str;
 
 				} else {//取消
 					window.location.href = "http://localhost/Book/showBookHandler/${pb.pageNow}";
@@ -172,7 +172,7 @@
 		outAll.onclick = function() {
 			var flag = confirm("你确定导出全部的图书信息吗？");
 			if (flag == true) {//确定
-				window.location.href = " OutPutBookServlet?action=all";
+				window.location.href ="http://localhost/Book/outPutBook/a";
 
 			} else {//取消
 				window.location.href = "http://localhost/Book/showBookHandler/${pb.pageNow}";
