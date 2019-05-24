@@ -57,7 +57,7 @@ public class BookHandler {
 
 	// 全查分页
 	@RequestMapping(value = "/showBookHandler/{pageNow}", method = RequestMethod.GET)
-	public String showPasgeMonster(@PathVariable(value = "pageNow") Integer pageNow, HttpServletRequest request) {
+	public String showBookHandler(@PathVariable(value = "pageNow") Integer pageNow, HttpServletRequest request) {
 		// System.out.println("访问页数" + pageNow);
 		/*
 		 * if (pageNow == null || pageNow < 1) { pageNow = 1; }
