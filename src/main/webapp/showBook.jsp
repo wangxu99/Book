@@ -328,6 +328,7 @@
 							<table class="table table-bordered table-hover " cellspacing="0"
 								cellpadding="20" id="tb2">
 								<tr align="center">
+								    <td>编号</td>
 									<td>图书编号</td>
 									<td>分类名称</td>
 									<td>图书名称</td>
@@ -341,6 +342,7 @@
 								<c:forEach items="${pb.beanList }" var="s" varStatus="ss">
 									<tr align='center'>
 										<td>${ss.index+1}</td>
+										<td>${s.bid}</td>
 										<td>${s.fenlei.fname}</td>
 										<td>${s.bname}</td>
 										<td>${s.money}</td>

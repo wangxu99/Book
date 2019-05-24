@@ -1,4 +1,4 @@
 <frameset rows="10%,*" frameborder="no"  >
 <frame  src="usertop.jsp">
- <frame src="UserForegroundServlet?action=showPasgeBook" name="down">
+ <frame src="userForegroundBook/1" name="down">
 </frameset> 

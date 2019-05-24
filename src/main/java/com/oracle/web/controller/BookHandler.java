@@ -105,19 +105,19 @@ public class BookHandler {
 			return url;
 		}
 		url = url.substring(0, index);
-		System.out.println(url);
+		//System.out.println(url);
 		return url;
 	}
 
 	private String getUrl(HttpServletRequest req) {
 		// TODO Auto-generated method stub
 		String path = req.getContextPath();
-		System.out.println(path);
+		//System.out.println(path);
 		String servlet = req.getServletPath();
-		System.out.println(servlet);
+		//System.out.println(servlet);
 		String param = req.getQueryString();
-		System.out.println(param);
-		System.out.println(path + servlet + "?" + param);
+		//System.out.println(param);
+		//System.out.println(path + servlet + "?" + param);
 		return path + servlet + "?" + param;
 	}
 
