@@ -93,13 +93,13 @@
 	</select>
 	<!-- 自定义 高级搜索 -->
 	<select id="selectByGji" parameterType="com.oracle.web.bean.Book" resultMap="BookAndFenlei">
-		 select * from book,fenlei 
+		 select * from book,fenlei
   <where>
      <if test="flid!=0">
      And flid=#{flid}
      </if>
     <if test="bname != null and bname !='' ">
-     And bname=#{bname}
+     And bname like '%${bname}%'
      </if>
      <if test="money !=null and money !='' ">
      And money=#{money}
@@ -108,7 +108,7 @@
      And press=#{press}
      </if>
      <if test="author !=null and author !='' ">
-     And author=#{author}
+     And author like '%${author}%'
      </if>
      <if test="stock !=null and stock !='' ">
      And stock=#{stock}
