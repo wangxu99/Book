@@ -1,11 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	String path = request.getContextPath();
-	String base = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/"
-			+ path + "/";
-%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +17,13 @@
 <script>
 
 	window.onload = function() {
+		
+		
+	<%-- 	
+	String path = request.getContextPath();
+	String base = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/"
+			+ path + "/";
+ --%>
 		
 	 
 		/*	 
@@ -113,12 +116,26 @@
 				 
 
 				var flag = confirm("你确定删除所勾选的用户吗？");
-				if (flag == true) {//确定
-					window.location.href = "<%=base%>UserServlet?action=delect&ids="+ str + "&pageNew=${pb.pageNew}&ausername=${ausername  }";
+				if (flage == true) {//确定
+					//拿到请求地址
+					var $url = "http://localhost/Book/deleteUser/" + str
+							+ "/${pb.pageNow}";
+
+					//拿到表单
+					$("#deleteForm").attr("action", $url);
+
+					//提交表单
+					$("#deleteForm").submit();
+
+					return false;
+					
 
 				} else {//取消
-					window.location.href = "<%=base%>UserServlet?action=showPasgeUser&pageNew=${pb.pageNew}&ausername=${ausername  }";
+
+					window.location.href = "http://localhost/Book/showUserByPage/${pb.pageNow}";
+
 				}
+				
 			}
 		};
 		
@@ -159,10 +176,10 @@
 
 				var flag = confirm("你确定导出所勾选的用户信息吗？");
 				if (flag == true) {//确定
-					window.location.href = "<%=base%>OutPutUserServlet?action=outids&ids="+str;
+					window.location.href = "OutPutUserServlet?action=outids&ids="+str;
 
 				} else {//取消
-					window.location.href = "<%=base%>UserServlet?action=showPasgeUser&pageNew=${pb.pageNew}&ausername=${ausername  }";
+					window.location.href = "UserServlet?action=showPasgeUser&pageNew=${pb.pageNew}&ausername=${ausername  }";
 				}
 			}
 		};
@@ -172,10 +189,10 @@
 			var flag = confirm("你确定导出全部的用户信息吗？");
 		 
 			if (flag == true) {//确定
-				window.location.href = "<%=base%>OutPutUserServlet?action=all";
+				window.location.href = "OutPutUserServlet?action=all";
 			 
 		} else {//取消
-			window.location.href = "<%=base%>UserServlet?action=showPasgeUser&pageNew=${pb.pageNew }&ausername=${ausername  }";
+			window.location.href = "UserServlet?action=showPasgeUser&pageNew=${pb.pageNew }&ausername=${ausername  }";
 		} 
 			
 		}
@@ -257,6 +274,7 @@ width: 860px;
 
 							<tr align="center">
 								<td>编号</td>
+								<td>id</td>
 								<td>头像</td>
 								<td>姓名</td>
 								<td>用户名</td>
@@ -267,42 +285,49 @@ width: 860px;
 								<td>图书借阅情况</td>
 								<td>修改</td>
 							</tr>
-							<c:forEach items="${pb.beanList  }" var="s" varStatus="l">
+							<c:forEach items="${pb.beanList  }" var="u" varStatus="uu">
 								<tr align='center'>
-									<td>${l.index+1}</td>
-									<td><img src="${s.touxiang }" width="30" height="30"></td>
-									<td>${s.name}</td>
+									<td>${luu.index+1}</td>
+									<td>${s.uid }</td>
+									<td><img src="${u.touxiang }" width="30" height="30"></td>
+									<td>${u.uname}</td>
 									<td>${s.username}</td>
 									<td>${s.password}</td>
 									<td>${s.phone}</td>
 									<td>${s.regtime}</td>
-									<td><input type="checkbox" name="ids" value="${s.id }"></td>
-								<td><a href='<%=base %>UserServlet?action=showOneBooktime&id=${s.id}&pageNew=${pb.pageNew}&ausername=${ausername  }'>
+									<td><input type="checkbox" name="ids" value="${s.uid }"></td>
+								<td><a href=UserServlet?action=showOneBooktime&id=${s.id}&pageNew=${pb.pageNew}&ausername=${ausername  }'>
 								<input  type="button" value="查看"  class="btn btn-info btn-sm"/></a>
 								</td>
 								 
 									<td><a
-										href='<%=base %>UserServlet?action=showOne&id=${s.id}&pageNew=${pb.pageNew}&ausername=${ausername  }'><input
+										href='updateUI/${s.uid}&pageNew=${pb.pageNew}'><input
 											type="button" value="修改"  class="btn btn-info btn-sm"/></a>
 											 </td>
 								</tr>
 							</c:forEach>
 
 						</table>
+						
+						<td>
+							<form action="" method="post" id="deleteForm">
+								<input type="hidden" name="_method" value="DELETE">
+							</form>
+						</td>
 				          <p>  
 							 第${pb.pageNew }页/共${pb.pages }&nbsp;&nbsp;&nbsp;&nbsp;
 							
 						      
 								  <ul class="pagination ">
 								 
-										<li> <a href="<%=base%>UserServlet?action=showPasgeUser&pageNew=1&ausername=${ausername  }">首页</a>
+										<li> <a href="UserServlet?action=showPasgeUser&pageNew=1&ausername=${ausername  }">首页</a>
 									&nbsp;&nbsp;&nbsp;&nbsp;
 									 
 								 
 									</li>
 						 	<c:if test="${pb.pageNew>1 }">
 								 <li><a aria-label="Previous"
-											href="<%=base %>UserServlet?action=showPasgeUser&pageNew=${pb.pageNew-1 }&ausername=${ausername  }"><span
+											href="UserServlet?action=showPasgeUser&pageNew=${pb.pageNew-1 }&ausername=${ausername  }"><span
 												aria-hidden="ture">上一页</span></a>
 												</li>
 									</c:if>
@@ -339,7 +364,7 @@ width: 860px;
 												<li class="active"><span>${i }</span></li>
 											</c:when>
 											<c:otherwise>
-												<li><a href="<%=base %>UserServlet?action=showPasgeUser&pageNew=${i}&ausername=${ausername  }">${i }</a>
+												<li><a href="UserServlet?action=showPasgeUser&pageNew=${i}&ausername=${ausername  }">${i }</a>
 													</li>
 											</c:otherwise>
 										</c:choose>
@@ -348,7 +373,7 @@ width: 860px;
 
 									<c:if test="${pb.pageNew<pb.pages }">
 										<li><a
-											href="<%=base %>UserServlet?action=showPasgeUser&pageNew=${pb.pageNew+1 }&ausername=${ausername  }"
+											href="UserServlet?action=showPasgeUser&pageNew=${pb.pageNew+1 }&ausername=${ausername  }"
 											aria-label="Previous"><span aria-hidden="ture">下一页</span></a>
 										</li>
 									</c:if>
@@ -356,7 +381,7 @@ width: 860px;
 									<li>
 									 
 										<li>&nbsp;&nbsp;&nbsp;&nbsp;<a
-											href="<%=base %>UserServlet?action=showPasgeUser&pageNew=${pb.pages}&ausername=${ausername  }" >尾页
+											href="UserServlet?action=showPasgeUser&pageNew=${pb.pages}&ausername=${ausername  }" >尾页
 										</a>
 										</li>								 
 							 </ul>

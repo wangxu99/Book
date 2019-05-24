@@ -46,7 +46,7 @@
 
 					}
 				},
-				username : {
+				/*username : {
 					validators : {
 
 						notEmpty : {
@@ -97,7 +97,7 @@
 							message : '密码是6-15位，必须含有字母和数字'
 						},
 					}
-				},
+				},*/
 				phone : {
 					validators : {
 						notEmpty : {
@@ -192,11 +192,9 @@ border: 1px solid #D7E4E8;
 			<table    >
 				<tr>
 					<td valign="top" width="60%"  >
-						<form name="register" action="UserServlet?action=add&ausername=${ausername  }"
-							method="post"   
-							enctype="multipart/form-data" class="form-horizontal">
+						<form name="register" action="addUser" method="post" enctype="multipart/form-data" class="form-horizontal">
 							<div class="form-group">
-								<label class="col-sm-3 col-sm-offset-2 control-label text-info">真实姓名:</label>
+								<label class="col-sm-3 col-sm-offset-2 control-label text-info">姓名:</label>
 								<div class="col-sm-4">
 									<input type="text" name="name"   class="form-control input-sm" />
 								</div>
@@ -223,7 +221,7 @@ border: 1px solid #D7E4E8;
 							<div class="form-group">
 								<label class="col-sm-3 col-sm-offset-2 control-label text-info">添加头像:</label>
 								<div class="col-sm-4">
-									<input type="file" name='touxiang' class="form-control input-sm" />
+									<input type="file" name="touxiang" class="form-control input-sm" />
 								</div>
 							</div>
 

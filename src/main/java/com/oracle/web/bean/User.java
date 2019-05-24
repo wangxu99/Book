@@ -70,6 +70,20 @@ public class User {
     public void setTouxiang(String touxiang) {
         this.touxiang = touxiang == null ? null : touxiang.trim();
     }
+    
+    
+
+	public User(Integer uid, String uname, String username, String password, String phone, String regtime,
+			String touxiang) {
+		super();
+		this.uid = uid;
+		this.uname = uname;
+		this.username = username;
+		this.password = password;
+		this.phone = phone;
+		this.regtime = regtime;
+		this.touxiang = touxiang;
+	}
 
 	@Override
 	public String toString() {
