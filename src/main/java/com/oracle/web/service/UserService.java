@@ -7,4 +7,8 @@ public interface UserService {
 
 	PageBean<User> showByPage(Integer pageNow);
 
+	int addUser(User user);
+
+	void deleteUser(String ids);
+
 }
