@@ -45,15 +45,15 @@ public class FenleiHandler {
 		}
 		
 	 
-	@RequestMapping(value="/addUI",method=RequestMethod.GET)
-	public String addUI(HttpServletRequest request){
-		
-		System.out.println("add");
-		
-		return "addFenlei";
-		
-	}
-	
+//	@RequestMapping(value="/addUI",method=RequestMethod.GET)
+//	public String addUI(HttpServletRequest request){
+//		
+//		System.out.println("add");
+//		
+//		return "addFenlei";
+//		
+//	}
+//	
 	@RequestMapping(value="/fenlei",method=RequestMethod.POST)
 	public String add(Fenlei fenlei){
 		

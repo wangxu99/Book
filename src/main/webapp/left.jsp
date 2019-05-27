@@ -46,10 +46,10 @@ h3{
 		</h3>
 		<div>
 			<li><span class="ui-icon ui-icon-plus"></span> <a
-				href="FenleiServlet?action=showaddfl&ausername=${ausername  }" target="right"><font size="4" face="黑体"
+				href="addfl.jsp" target="right"><font size="4" face="黑体"
 					color="#337AB7">添加分类</font></a></li>
 			<li><span class="ui-icon ui-icon-search"></span><a
-				href="FenleiServlet?action=showPasgefl&ausername=${ausername  }" target="right"><font
+				href="fenleis/1  }" target="right"><font
 					size="4" face="黑体" color="#337AB7">查看所有分类</font></a></li>
 
 		</div>
