@@ -27,4 +27,12 @@ public interface FenleiMapper {
     int updateByPrimaryKeySelective(Fenlei record);
 
     int updateByPrimaryKey(Fenlei record);
+
+	List<Fenlei> list();
+
+	int save(Fenlei fenlei);
+
+	List<Fenlei> selectAllByPageHelper();
+
+	int counts();
 }
