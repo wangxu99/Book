@@ -108,7 +108,7 @@ border: 1px solid #D7E4E8;
 				<h2 class="text-center text-info">添加分类</h2>
              
              <hr>
-			<form action="FenleiServlet?action=add&ausername=${ausername }" method="post" id="register"
+			<form action="addFenlei" method="post" id="register"
 			  class="form-horizontal">
 
 				<div class="form-group">

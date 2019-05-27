@@ -161,4 +161,15 @@
     set fname = #{fname,jdbcType=VARCHAR}
     where fid = #{fid,jdbcType=INTEGER}
   </update>
+  
+  
+	<select id="selectCount" resultType="java.lang.Integer">
+   	 SELECT COUNT(*) FROM BOOK
+	</select>
+     
+     
+	<select id="selectAllByPageHelper" parameterType="int" resultMap="SubMonsterResultMap">
+    select * from fenlei  order by fenlei.fid desc 
+	</select>
+     
 </mapper>
