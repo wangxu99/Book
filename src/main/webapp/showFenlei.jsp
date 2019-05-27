@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 	String path = request.getContextPath();
 	String base = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/"
@@ -10,18 +11,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="bootstrap/css/bootstrap.css" />
-<script type="text/javascript" src="bootstrap/js/jquery.js"></script>
-<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+<<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Bootstrap -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+<script
+	src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 
 <title>查看所有分类</title>
 
 <script type="text/javascript" src="js/jquery-1.8.3.js"></script>
 <script>
 
-	  $(function(){  
+	 <%--  $(function(){  
  	 
 		var chek = document.getElementsByName("ids");
 
@@ -178,7 +187,7 @@
 		} 
  });
 	
- 
+  --%>
 		
 </script>
 <style>
@@ -241,7 +250,7 @@ width: 860px;
            <li role="presentation"><a id="fanxuan" href="#">反选</a></li>
            <li role="presentation"><a id="outIds"  href="#">导出选中</a></li>
            <li role="presentation"><a id="outAll" href="#">导出全部</a></li>
-           <li role="presentation"  class="dropdown"><a href="<%=base%>FenleiServlet?action=updatefl22&ausername=${ausername }"  role="menuitem" id="li">多项修改 </a></li>
+          <%--  <li role="presentation"  class="dropdown"><a href="<%=base%>FenleiServlet?action=updatefl22&ausername=${ausername }"  role="menuitem" id="li">多项修改 </a></li> --%>
           
    			 
       </ul>  
@@ -264,10 +273,10 @@ width: 860px;
 							<c:forEach items="${pb.beanList }" var="s" varStatus="ss">
 								<tr align='center'  >
 									<td>${ss.index+1}</td>
-									<td colspan="2">${s.name}</td>
-									<td><input type="checkbox" name="ids" value="${s.id}" /></td>
+									<td colspan="2">${s.fname}</td>
+									<td><input type="checkbox" name="ids" value="${s.fid}" /></td>
 									<td><a
-										href='<%=base %>FenleiServlet?action=showOne&id=${s.id}&pageNew=${pb.pageNew}&ausername=${ausername }'>
+										href='http://localhost/Book/fenlei/${s.fid}'>
 											<input type="button" value="修改" class="btn btn-info btn-sm"/>
 									</a></td>
 								</tr>
@@ -280,19 +289,19 @@ width: 860px;
 					<td>
                       
 						<p>  
-							 第${pb.pageNew }页/共${pb.pages }&nbsp;&nbsp;&nbsp;&nbsp;
+							 第${pb.pageNow }页/共${pb.pages }&nbsp;&nbsp;&nbsp;&nbsp;
 							
 						      
 								  <ul class="pagination ">
 								 
-										<li> <a href="<%=base%>FenleiServlet?action=showPasgefl&pageNew=1&ausername=${ausername }">首页</a>
+										<li> <a href="http://localhost/Book/fenleis/1">首页</a>
 									&nbsp;&nbsp;&nbsp;&nbsp;
 									 
 								 
 									</li>
-						 	<c:if test="${pb.pageNew>1 }">
+						 	<c:if test="${pb.pageNow>1 }">
 								 <li><a aria-label="Previous"
-											href="<%=base %>FenleiServlet?action=showPasgefl&pageNew=${pb.pageNew-1 }&ausername=${ausername }"><span
+											href="http://localhost/Book/fenleis/${pb.pageNow-1}"><span
 												aria-hidden="ture">上一页</span></a>
 												</li>
 									</c:if>
@@ -308,8 +317,8 @@ width: 860px;
 											<c:set var="end" value="${pb.pages }"></c:set>
 										</c:when>
 										<c:otherwise>
-											<c:set var="begin" value="${pb.pageNew-5 }"></c:set>
-											<c:set var="end" value="${pb.pageNew+4 }"></c:set>
+											<c:set var="begin" value="${pb.pageNow-5 }"></c:set>
+											<c:set var="end" value="${pb.pageNow+4 }"></c:set>
 											<c:if test="${begin<=1 }">
 												<c:set var="begin" value="1"></c:set>
 												<c:set var="end" value="10"></c:set>
@@ -325,20 +334,20 @@ width: 860px;
 
 									<c:forEach begin="${begin }" end="${end }" var="i">
 										<c:choose>
-											<c:when test="${pb.pageNew==i }">
+											<c:when test="${pb.pageNow==i }">
 												<li class="active"><span>${i }</span></li>
 											</c:when>
 											<c:otherwise>
-												<li><a href="<%=base %>FenleiServlet?action=showPasgefl&pageNew=${i}&ausername=${ausername }">${i }</a>
+												<li><a href=" http://localhost/Book/fenleis/${i}">${i }</a>
 													</li>
 											</c:otherwise>
 										</c:choose>
 									</c:forEach>
                                 
 
-									<c:if test="${pb.pageNew<pb.pages }">
+									<c:if test="${pb.pageNow<pb.pages }">
 										<li><a
-											href="<%=base %>FenleiServlet?action=showPasgefl&pageNew=${pb.pageNew+1 }&ausername=${ausername }"
+											href=" http://localhost/Book/fenleis/${pb.pageNow+1}"
 											aria-label="Previous"><span aria-hidden="ture">下一页</span></a>
 										</li>
 									</c:if>
@@ -346,7 +355,7 @@ width: 860px;
 									<li>
 									 
 										<li>&nbsp;&nbsp;&nbsp;&nbsp;<a
-											href="<%=base %>FenleiServlet?action=showPasgefl&pageNew=${pb.pages}&ausername=${ausername }" >尾页
+											href="http://localhost/Book/fenleis/${pb.pages}" >尾页
 										</a>
 										</li>								 
 							 </ul>

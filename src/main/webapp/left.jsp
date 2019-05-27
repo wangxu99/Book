@@ -49,7 +49,7 @@ h3{
 				href="addfl.jsp" target="right"><font size="4" face="黑体"
 					color="#337AB7">添加分类</font></a></li>
 			<li><span class="ui-icon ui-icon-search"></span><a
-				href="fenleis/1  }" target="right"><font
+				href="fenleis/1" target="right"><font
 					size="4" face="黑体" color="#337AB7">查看所有分类</font></a></li>
 
 		</div>
