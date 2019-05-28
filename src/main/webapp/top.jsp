@@ -33,7 +33,7 @@
 h4 {
 	margin-top: 40px;
 }
-  div{
+div{
   height:80px;
 background-color:#337AB7;
 

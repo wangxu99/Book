@@ -13,4 +13,6 @@ public interface UserService {
 
 	User selectOne(Integer id);
 
+	User UserLoginYanZheng(String username);
+
 }

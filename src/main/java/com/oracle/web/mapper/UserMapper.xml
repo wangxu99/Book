@@ -91,6 +91,10 @@
     from user
     where uid = #{uid,jdbcType=INTEGER}
   </select>
+  <!--  用户登录,注册校验 wx -->
+   <select id="UserLoginYanZheng" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from user where username = #{username}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user
     where uid = #{uid,jdbcType=INTEGER}

@@ -18,7 +18,7 @@
 <style type="text/css">
  .footer {
 	color: #777;
-	border-top: 1px solid #e5e5e5;
+	 /*  border-top: 1px solid #e5e5e5;  */
 	text-align: center;
 	padding:  0px 0;
 	 margin-top: 0px;

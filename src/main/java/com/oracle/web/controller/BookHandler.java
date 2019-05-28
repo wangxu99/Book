@@ -43,7 +43,6 @@ import com.oracle.web.bean.Fenlei;
 import com.oracle.web.bean.PageBean;
 import com.oracle.web.service.BookService;
 import com.oracle.web.service.FenleiService;
-import com.oracle.web.util.DownUtils;
 
 @Controller
 @Scope(value = "prototype")

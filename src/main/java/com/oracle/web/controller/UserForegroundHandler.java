@@ -1,8 +1,13 @@
 package com.oracle.web.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -11,24 +16,84 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.oracle.web.bean.Admin;
 import com.oracle.web.bean.Book;
 import com.oracle.web.bean.BookAndFenlei;
 import com.oracle.web.bean.Fenlei;
 import com.oracle.web.bean.PageBean;
+import com.oracle.web.bean.User;
 import com.oracle.web.service.BookService;
 import com.oracle.web.service.FenleiService;
+import com.oracle.web.service.UserService;
 
 @Controller
 @Scope(value = "prototype")
 public class UserForegroundHandler {
 
+	@Autowired
+	private UserService userService;
 	
 	@Autowired
 	private BookService bookService;
 
 	@Autowired
 	private FenleiService fenleiService;
+ 
+	
+	//用户登录
+	@RequestMapping(value="/userloginYanZheng",method=RequestMethod.GET)
+	public String loginYanZheng(@RequestParam(value = "username") String username,
+			@RequestParam(value = "password") String password,HttpSession session){ 
+		 
+		 User user2=this.userService.UserLoginYanZheng(username);
+		
+	 	 
+		if (user2 == null) {
+			//request.getWriter().write("{\"valid\":\"false\"}");
+
+			return "userlogin";
+		}
+
+		if (!user2.getPassword().equals(password)) {
+			//resp.getWriter().write("{\"valid\":\"false\"}");
+			return "userlogin";
+		} else {
+
+			//resp.getWriter().write("{\"valid\":\"true\"}");
+			session.setAttribute("username", username);
+			return "userindex";
+		}
+ 
+		} 
+	
+	
+	//用户登录校验
+		@RequestMapping(value="/userloginYZ",method=RequestMethod.GET)
+	public void userloginYZ(@RequestParam(value = "username") String username,
+			@RequestParam(value = "password") String password, HttpServletResponse response) throws IOException{ 
+			 
+			 User user2=this.userService.UserLoginYanZheng(username);
+			
+		 	 
+			if (user2 == null) {
+				 response.getWriter().write("{\"valid\":\"false\"}");
+
+				
+			}
+
+			if (!user2.getPassword().equals(password)) {
+				//resp.getWriter().write("{\"valid\":\"false\"}");
+				response.getWriter().write("{\"valid\":\"false\"}");
+			} else {
+
+				 
+				response.getWriter().write("{\"valid\":\"true\"}");
+			}
+	 
+			} 
+	
 	// 全查分页
 		@RequestMapping(value = "/userForegroundBook/{pageNow}", method = RequestMethod.GET)
 		public String userForegroundBook(@PathVariable(value = "pageNow") Integer pageNow, HttpServletRequest request) {

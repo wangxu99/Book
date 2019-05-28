@@ -41,7 +41,7 @@
 </script>
 <style>
 #div3 {
-	margin-top: 30px;
+	margin-top: 70px;
 	width: 1300px;
 	height: 800px;
 	 
@@ -63,6 +63,7 @@
 	width: 400px;
 }
 #div2 {
+    margin-top:20px;
 	margin-left: 10px;
 }
 

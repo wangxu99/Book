@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.oracle.web.bean.Book;
+import com.oracle.web.bean.BookExample;
 import com.oracle.web.bean.PageBean;
 import com.oracle.web.bean.User;
 import com.oracle.web.bean.UserExample;
@@ -89,6 +91,15 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		
 		return this.userMapper.selectByPrimaryKey(id);
+	}
+
+ 
+	//用户登录/注册校验--wx
+	@Override
+	@Transactional
+	public User UserLoginYanZheng(String username) {
+		// TODO Auto-generated method stub
+		return  this.userMapper.UserLoginYanZheng(username);
 	}
 
 }

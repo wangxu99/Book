@@ -34,4 +34,8 @@ public interface UserMapper {
 	int selectCount();
 
 	List<User> showByPage(int index);
+
+	User UserLoginYanZheng(String username);//用户登录/注册校验--wx
+
+	 
 }
