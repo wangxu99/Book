@@ -27,6 +27,7 @@ public interface UserMapper {
 
     int updateByExample(@Param("record") User record, @Param("example") UserExample example);
 
+  //修改
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);

@@ -83,12 +83,31 @@ public class UserServiceImpl implements UserService {
 	}
 
 
+	//单查
 	@Override
 	@Transactional
 	public User selectOne(Integer id) {
 		// TODO Auto-generated method stub
 		
 		return this.userMapper.selectByPrimaryKey(id);
+	}
+
+	
+	// 修改头像
+	@Override
+	public void updateTouxoiang(User user) {
+		// TODO Auto-generated method stub
+		
+		this.userMapper.updateByPrimaryKeySelective(user);
+	}
+
+
+	@Override
+	public void updateUser(User user) {
+		// TODO Auto-generated method stub
+		
+		this.userMapper.updateByPrimaryKeySelective(user);
+		
 	}
 
 }

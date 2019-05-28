@@ -13,4 +13,8 @@ public interface UserService {
 
 	User selectOne(Integer id);
 
+	void updateTouxoiang(User user);
+
+	void updateUser(User user);
+
 }

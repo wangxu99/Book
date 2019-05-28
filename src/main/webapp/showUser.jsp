@@ -263,7 +263,7 @@
 									<td>id</td>
 									<td>头像</td>
 									<td>姓名</td>
-									<td>用户名</td>
+									<td>学号</td>
 									<td>密码</td>
 									<td>手机</td>
 									<td>注册时间</td>

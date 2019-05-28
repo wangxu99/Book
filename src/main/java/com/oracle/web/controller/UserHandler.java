@@ -112,20 +112,67 @@ public class UserHandler {
 	@RequestMapping(value = "/updateUl/{uid}", method = RequestMethod.GET)
 	public String updateUl(@PathVariable(value = "uid") Integer id, HttpSession session) {
 
-		System.out.println("修改用户");
-
 		User user = this.userService.selectOne(id);
+		
+		System.out.println(user);
 
 		session.setAttribute("user", user);
-
-		System.out.println("修改用户.........");
 
 		return "redirect:/changeUser.jsp";
 
 	}
 	
+	//修改头像
+	@RequestMapping(value = "/updateTouxiang", method=RequestMethod.POST)
+	public String updateTouxiang(Integer uid,MultipartFile touxiang, HttpSession session) throws Exception{
+		
+		System.out.println("修改头像");
+		
+		String realPath = session.getServletContext().getRealPath("/upload");
+
+		int hashCode = touxiang.getOriginalFilename().hashCode();
+
+		String hex = Integer.toHexString(hashCode);
+
+		char c1 = hex.charAt(0);
+
+		char c2 = hex.charAt(1);
+
+		String redlName = UUID.randomUUID().toString() + "_" + touxiang.getOriginalFilename();
+
+		String savepath = "/" + c1 + "/" + c2 + "/" + redlName;
+
+		File saveFile = new File(realPath + savepath);
+
+		saveFile.mkdirs();
+
+		// 真正上传
+		touxiang.transferTo(saveFile);
+		
+		User user=new User();
+		
+		String realsavepath = "upload" + savepath;
+		
+		user.setUid(uid);
+		
+		user.setTouxiang(realsavepath);
+		
+		this.userService.updateTouxoiang(user);
+		
+		return "redirect:/updateUl/"+uid;
+		
+	}
 	
-	// 修改用户 真正修改
+	
+	// 修改用户 
+	@RequestMapping(value="User",method=RequestMethod.PUT)
+	public String updateUser(User user){
+		
+		this.userService.updateUser(user);
+		
+		return "redirect:/showUserByPage";
+		
+	}
 	
 	
 	

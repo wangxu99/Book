@@ -200,7 +200,7 @@ border: 1px solid #D7E4E8;
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-3 col-sm-offset-2 control-label text-info">用户名:</label>
+								<label class="col-sm-3 col-sm-offset-2 control-label text-info">学号:</label>
 								<div class="col-sm-4">
 									<input type="text" name="username"   class="form-control input-sm"/>
 								</div>

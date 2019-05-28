@@ -191,9 +191,8 @@ hr {
   
 				<h2 class="text-center text-info">修改用户信息</h2>
 				<hr>
-				<form id="f1" action="UserServlet?action=updateTouxaing&ausername=${ausername  }"
-					method="post" enctype="multipart/form-data"
-					class="form-horizontal f1">
+				<form id="f1" action="updateTouxiang"  method="post"  enctype="multipart/form-data"  class="form-horizontal f1">
+					<input type="hidden" name="uid" value="${user.uid }"> 
 					<div class="form-group">
 						<label class="col-sm-3 col-sm-offset-2 control-label text-info">
 							<img src="${user.touxiang }" width="90" height="90">
@@ -204,22 +203,23 @@ hr {
 					 
 						<div class="col-sm-4  f1input2">
 						 
-						  <button class="btn  " type="submit">修改头像</button>					 
+						  <button class="btn" type="submit">修改头像</button>					 
 						</div>
 						</div>
 					 
 				</form>
 		  
-				<form id="f2" action="UserServlet?action=updateUser&ausername=${ausername  }"  method="post" class="form-horizontal">	
-				 <input type="hidden" name="id" value="${user.uid }">  				 
+				<form id="f2" action="User"  method="post" class="form-horizontal">
+				<input type="hidden" name="_method" value="PUT">	
+				 <input type="hidden" name="uid" value="${user.uid }">  				 
 					<div class="form-group">
 						<label class="col-sm-3 col-sm-offset-2 control-label text-info">姓名:</label>
 						<div class="col-sm-4">
-							<input type="text" name="name" value="${user.uname }" class="form-control input-sm" />
+							<input type="text" name="uname" value="${user.uname }" class="form-control input-sm" />
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-3 col-sm-offset-2 control-label text-info">用户名:</label>
+						<label class="col-sm-3 col-sm-offset-2 control-label text-info">学号:</label>
 						<div class="col-sm-4">
 							<input type="text" name="username" value="${user.username }"
 								class="form-control input-sm" disabled />
