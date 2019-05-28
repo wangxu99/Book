@@ -2,8 +2,10 @@ package com.oracle.web.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -18,118 +20,117 @@ import com.oracle.web.bean.User;
 import com.oracle.web.service.UserService;
 
 @Controller
-@Scope(value="prototype")
+@Scope(value = "prototype")
 public class UserHandler {
-	
+
 	@Autowired
 	private UserService userService;
-	
-	private File touxiang;
-	
-	private String touxiangContentType;
-	
-	private String touxiangFileName;
-	
-	
-	
-	public File getTouxiang() {
-		return touxiang;
-	}
 
+	// 分页查
+	@RequestMapping(value = "/showUserByPage", method = RequestMethod.GET)
+	public String showByPage(HttpServletRequest request, Integer pageNow) {
 
-	public void setTouxiang(File touxiang) {
-		this.touxiang = touxiang;
-	}
+		if (pageNow == null || pageNow < 0) {
 
-
-	public String getTouxiangContentType() {
-		return touxiangContentType;
-	}
-
-
-	public void setTouxiangContentType(String touxiangContentType) {
-		this.touxiangContentType = touxiangContentType;
-	}
-
-
-	public String getTouxiangFileName() {
-		return touxiangFileName;
-	}
-
-
-	public void setTouxiangFileName(String touxiangFileName) {
-		this.touxiangFileName = touxiangFileName;
-	}
-
-
-		//分页
-		@RequestMapping(value="/showUserByPage",method=RequestMethod.GET)
-		public  String showByPage(HttpServletRequest request,Integer pageNow){
-			
-			
-			if(pageNow==null||pageNow<0){
-				
-				pageNow=1;
-			}
-			
-			PageBean<User> pb=this.userService.showByPage(pageNow);
-			
-			request.setAttribute("pb", pb);
-			
-			return "showUser";
-			
-			
+			pageNow = 1;
 		}
-		
-		
-		//添加
-		@RequestMapping(value="/addUser",method=RequestMethod.POST)
-		public String addUser(String uname,String username,String password,String phone,String regtime, MultipartFile touxiang) throws Exception{
-			
-			File file = new File("upload");
-			
-			touxiang.transferTo(file);
-			
-			String path=touxiang.getOriginalFilename();
-			
-			String valPath="upload"+path;
-			
-			User user=new User(null, uname, username, password, phone, regtime, valPath);
-			
-			int i=this.userService.addUser(user);
-			
-			
-			if(i>0){
-				
-				return "redirect:/showUserByPage";
-				
-			}else{
-				
-				return "addUser";
-			}
-			
-			
-			
-		}
-		
-		
-		//删除
-		@RequestMapping(value = "/deleteUser/{ids}/{pageNow}", method = RequestMethod.DELETE)
-		public String deleteUser(@PathVariable(value = "ids") String ids, @PathVariable(value = "pageNow") Integer pageNow){
-			
-			this.userService.deleteUser(ids);
-			
-			return "redirect:/showUserByPage"+pageNow;
-			
-		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
 
+		PageBean<User> pb = this.userService.showByPage(pageNow);
+
+		request.setAttribute("pb", pb);
+
+		return "showUser";
+
+	}
+
+	// 添加
+	@RequestMapping(value = "/User", method = RequestMethod.POST)
+	public String addUser(String uname, String username, String password, String phone, String regtime,
+			MultipartFile touxiang, HttpSession session) throws Exception {
+
+		String realPath = session.getServletContext().getRealPath("/upload");
+
+		// System.out.println(file.getOriginalFilename());
+		// String path ="/upload/"+file.getOriginalFilename();
+
+		int hashCode = touxiang.getOriginalFilename().hashCode();
+
+		String hex = Integer.toHexString(hashCode);
+
+		char c1 = hex.charAt(0);
+
+		char c2 = hex.charAt(1);
+
+		// realPath=realPath+"/"+c1+"/"+c2;
+
+		String redlName = UUID.randomUUID().toString() + "_" + touxiang.getOriginalFilename();
+
+		String savepath = "/" + c1 + "/" + c2 + "/" + redlName;
+
+		File saveFile = new File(realPath + savepath);
+
+		saveFile.mkdirs();
+
+		// 真正上传
+		touxiang.transferTo(saveFile);
+
+		String realsavepath = "upload" + savepath;
+		
+		System.out.println(realsavepath);
+
+		User user = new User(null, uname, username, password, phone, regtime, realsavepath);
+
+		int i = this.userService.addUser(user);
+
+		session.setAttribute("url",realsavepath);
+
+		if (i > 0) {
+
+			return "redirect:/showUserByPage";
+
+		} else {
+
+			return "addUser";
+		}
+
+	}
+
+	// 批量删除
+	@RequestMapping(value = "/User/{ids}/{pageNow}", method = RequestMethod.DELETE)
+	public String deleteUser(@PathVariable(value = "ids") String ids,
+			@PathVariable(value = "pageNow") Integer pageNow) {
+
+		this.userService.deleteUser(ids);
+
+		System.out.println("ids...");
+
+		return "redirect:/showUserByPage" + pageNow;
+
+	}
+
+	// 修改用户  先查出来
+	@RequestMapping(value = "/updateUl/{uid}", method = RequestMethod.GET)
+	public String updateUl(@PathVariable(value = "uid") Integer id, HttpSession session) {
+
+		System.out.println("修改用户");
+
+		User user = this.userService.selectOne(id);
+
+		session.setAttribute("user", user);
+
+		System.out.println("修改用户.........");
+
+		return "redirect:/changeUser.jsp";
+
+	}
+	
+	
+	// 修改用户 真正修改
+	
+	
+	
+
+	// 导出
+	
+	
 }

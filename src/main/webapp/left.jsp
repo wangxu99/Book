@@ -79,11 +79,11 @@ h3{
 		<div id="user2">
 
 			<li><span class="ui-icon ui-icon-plus"></span> <a
-				href="UserServlet?action=showadduser&ausername=${ausername  }" target="right"><font size="4" face="黑体"
+				href="addUser.jsp" target="right"><font size="4" face="黑体"
 					color="#337AB7">添加用户</font></a></li>
 
 			<li><span class="ui-icon ui-icon-search"></span><a
-				href="UserServlet?action=showPasgeUser&ausername=${ausername  }" target="right"><font
+				href="showUserByPage" target="right"><font
 					face="黑体" size="4" color="#337AB7">查看用户</font></a></li>
 
 		</div>

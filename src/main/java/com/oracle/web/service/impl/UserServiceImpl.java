@@ -1,5 +1,6 @@
 package com.oracle.web.service.impl;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.oracle.web.bean.PageBean;
 import com.oracle.web.bean.User;
+import com.oracle.web.bean.UserExample;
+import com.oracle.web.bean.UserExample.Criteria;
 import com.oracle.web.mapper.UserMapper;
 import com.oracle.web.service.UserService;
 
@@ -17,6 +20,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserMapper userMapper;
 
+	// 分页查
 	@Override
 	@Transactional(readOnly = true)
 	public PageBean<User> showByPage(Integer pageNow) {
@@ -45,13 +49,19 @@ public class UserServiceImpl implements UserService {
 		return pb;
 	}
 
+	
+	//添加
 	@Override
+	@Transactional
 	public int addUser(User user) {
 		// TODO Auto-generated method stub
 		return this.userMapper.insert(user);
 	}
 
+	
+	// 批量删
 	@Override
+	@Transactional
 	public void deleteUser(String ids) {
 		// TODO Auto-generated method stub
 		
@@ -63,7 +73,22 @@ public class UserServiceImpl implements UserService {
 			values[i] = Integer.parseInt(a[i]);
 		}
 		
+		UserExample example = new UserExample();
 		
+		Criteria criteria = example.createCriteria();
+		
+		criteria.andUidIn(Arrays.asList(values));
+		
+		this.userMapper.deleteByExample(example);	
+	}
+
+
+	@Override
+	@Transactional
+	public User selectOne(Integer id) {
+		// TODO Auto-generated method stub
+		
+		return this.userMapper.selectByPrimaryKey(id);
 	}
 
 }
