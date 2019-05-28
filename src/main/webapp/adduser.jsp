@@ -192,11 +192,11 @@ border: 1px solid #D7E4E8;
 			<table    >
 				<tr>
 					<td valign="top" width="60%"  >
-						<form name="register" action="addUser" method="post" enctype="multipart/form-data" class="form-horizontal">
+						<form name="register" action="User" method="post" enctype="multipart/form-data" class="form-horizontal">
 							<div class="form-group">
 								<label class="col-sm-3 col-sm-offset-2 control-label text-info">姓名:</label>
 								<div class="col-sm-4">
-									<input type="text" name="name"   class="form-control input-sm" />
+									<input type="text" name="uname"   class="form-control input-sm" />
 								</div>
 							</div>
 							<div class="form-group">

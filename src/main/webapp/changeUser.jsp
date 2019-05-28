@@ -14,7 +14,7 @@
 <title>修改用户信息</title>
 <script type="text/javascript" src="js/ajax.js"></script>
 <script >
-	$(function() {
+	/* $(function() {
    
 		$("#f2").bootstrapValidator({
 			       
@@ -133,7 +133,7 @@
 
 						}); 
 
-	});
+	}); */
 </script>
 <style>
 #div1 {
@@ -196,7 +196,7 @@ hr {
 					class="form-horizontal f1">
 					<div class="form-group">
 						<label class="col-sm-3 col-sm-offset-2 control-label text-info">
-							<img src="${s.touxiang }" width="90" height="90">
+							<img src="${user.touxiang }" width="90" height="90">
 						</label>
 						<div class="col-sm-4 f1input1">
 							<input type="file" name="touxiang" class="form-control input-sm" />
@@ -211,38 +211,38 @@ hr {
 				</form>
 		  
 				<form id="f2" action="UserServlet?action=updateUser&ausername=${ausername  }"  method="post" class="form-horizontal">	
-				 <input type="hidden" name="id" value="${s.id }">  				 
+				 <input type="hidden" name="id" value="${user.uid }">  				 
 					<div class="form-group">
-						<label class="col-sm-3 col-sm-offset-2 control-label text-info">真实姓名:</label>
+						<label class="col-sm-3 col-sm-offset-2 control-label text-info">姓名:</label>
 						<div class="col-sm-4">
-							<input type="text" name="name" value="${s.name }" class="form-control input-sm" />
+							<input type="text" name="name" value="${user.uname }" class="form-control input-sm" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-3 col-sm-offset-2 control-label text-info">用户名:</label>
 						<div class="col-sm-4">
-							<input type="text" name="username" value="${s.username }"
+							<input type="text" name="username" value="${user.username }"
 								class="form-control input-sm" disabled />
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-3 col-sm-offset-2 control-label text-info">密码:</label>
 						<div class="col-sm-4">
-							<input type="text" name="password" value="${s.password }"
+							<input type="text" name="password" value="${user.password }"
 								class="form-control input-sm" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-3 col-sm-offset-2 control-label text-info">手机号:</label>
 						<div class="col-sm-4">
-							<input type="text" name="phone" value="${s.phone }"
+							<input type="text" name="phone" value="${user.phone }"
 								class="form-control input-sm" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-3 col-sm-offset-2 control-label text-info">注册时间:</label>
 						<div class="col-sm-4">
-							<input type="text" name="regtime" value="${s.regtime }"
+							<input type="text" name="regtime" value="${user.regtime }"
 								class="form-control input-sm" />
 						</div>
 					</div>
