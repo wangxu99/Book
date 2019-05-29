@@ -248,4 +248,7 @@
   <select id="showByPage" parameterType="int" resultType="user">
     select * from user order by uid desc limit #{index},8
   </select>
+  <select id="selectValidate" parameterType="String" resultType="user">
+  	select * from user where username = #{username}
+  </select>
 </mapper>

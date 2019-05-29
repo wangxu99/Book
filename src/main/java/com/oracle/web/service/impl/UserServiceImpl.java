@@ -110,4 +110,11 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
+
+	@Override
+	public User validateUser(String username) {
+		// TODO Auto-generated method stub
+		return this.userMapper.selectValidate(username);
+	}
+
 }

@@ -35,4 +35,6 @@ public interface UserMapper {
 	int selectCount();
 
 	List<User> showByPage(int index);
+
+	User selectValidate(String username);
 }

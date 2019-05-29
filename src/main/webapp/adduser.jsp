@@ -27,7 +27,7 @@
 				
 			}, 
 			fields: {
-				name : {
+				uname : {
 					validators : {
 
 						notEmpty : {
@@ -46,7 +46,7 @@
 
 					}
 				},
-				/*username : {
+				username : {
 					validators : {
 
 						notEmpty : {
@@ -58,18 +58,17 @@
 							max : 15,
 							message : '用户名必须是3-15个字母或数字组成'
 						},
-
+						
 						// threshold :  6 , 有6字符以上才发送ajax请求，（input中输入一个字符，插件会向服务器发送一次，设置限制，6字符以上才开始）
 						remote : {//ajax验证。server result:{"valid",true or false} 向服务发送当前input name值，获得一个json数据。例表示正确：{"valid",true}  
-							url : "UserServlet",//验证地址
+							url : "validateUser",//验证地址
 							message : '该用户名已存在',//提示消息
-							delay : 500,//每输入一个字符，就发ajax请求，服务器压力还是太大，设置2秒发送一次ajax（默认输入一个字符，提交一次，服务器压力太大）
-							type : 'POST',//请求方式
+							delay : 300,//每输入一个字符，就发ajax请求，服务器压力还是太大，设置2秒发送一次ajax（默认输入一个字符，提交一次，服务器压力太大）
+							type : 'GET',//请求方式
 
 							//自定义提交数据，默认值提交当前input value
 							data : function(validator) {
 								return {
-									action : "yanzheng",
 									username : $(
 											"input[name=username]")
 											.val()
@@ -97,7 +96,7 @@
 							message : '密码是6-15位，必须含有字母和数字'
 						},
 					}
-				},*/
+				},
 				phone : {
 					validators : {
 						notEmpty : {
