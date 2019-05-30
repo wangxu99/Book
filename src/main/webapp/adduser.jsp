@@ -63,7 +63,7 @@
 						remote : {//ajax验证。server result:{"valid",true or false} 向服务发送当前input name值，获得一个json数据。例表示正确：{"valid",true}  
 							url : "validateUser",//验证地址
 							message : '该用户名已存在',//提示消息
-							delay : 300,//每输入一个字符，就发ajax请求，服务器压力还是太大，设置2秒发送一次ajax（默认输入一个字符，提交一次，服务器压力太大）
+							delay : 500,//每输入一个字符，就发ajax请求，服务器压力还是太大，设置2秒发送一次ajax（默认输入一个字符，提交一次，服务器压力太大）
 							type : 'GET',//请求方式
 
 							//自定义提交数据，默认值提交当前input value
@@ -112,6 +112,11 @@
 				touxiang : {
 
 					validators : {
+						notEmpty : {
+
+							message : '头像不能为空'
+							
+						},
 						file : {
 							extension : 'pdf,jpg,gif,png,bmp,jpeg',
 							type : 'image/pdf,image/jpg,image/gif,image/png,image/bmp,image/jpeg',
@@ -121,9 +126,14 @@
 				},  
 				regtime: {
 	        validators: {
+	        	notEmpty : {
+
+					message : '日期不能为空'
+					
+				},
 	            date: {
 	                format: 'YYYY/MM/DD',
-	                message: 'The birthday is not valid'
+	                message: '日期不合法'
 	            }
 	        }
 	    }

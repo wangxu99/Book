@@ -112,8 +112,7 @@
 				if (flag == true) {//确定
 					//拿到请求地址
 
-					var $url = "http://localhost/Book/User/" + str
-							+ "/${pb.pageNow}";
+					var $url = "http://localhost/Book/User/" + str;
 					/* var $url = "http://localhost/Book/deleteUser/" + str
 						+ "/${pb.pageNow}";  */
 

@@ -61,9 +61,9 @@ public class UserHandler {
 		return null;
 	}
 
-	// 分页查
+	// 分页查询
 	@RequestMapping(value = "/showUserByPage", method = RequestMethod.GET)
-	public String showByPage(HttpServletRequest request, Integer pageNow) {
+	public String showByPage(Integer pageNow,HttpServletRequest request) {
 
 		if (pageNow == null || pageNow < 0) {
 
@@ -78,7 +78,7 @@ public class UserHandler {
 
 	}
 
-	// 添加
+	// 添加用户
 	@RequestMapping(value = "/User", method = RequestMethod.POST)
 	public String addUser(String uname, String username, String password, String phone, String regtime,
 			MultipartFile touxiang, HttpSession session) throws Exception {
@@ -131,21 +131,20 @@ public class UserHandler {
 	}
 
 	// 批量删除
-	@RequestMapping(value = "/User/{ids}/{pageNow}", method = RequestMethod.DELETE)
-	public String deleteUser(@PathVariable(value = "ids") String ids,
-			@PathVariable(value = "pageNow") Integer pageNow) {
+	@RequestMapping(value = "/User/{ids}", method = RequestMethod.DELETE)
+	public String deleteUser(@PathVariable(value = "ids") String ids){
 
 		this.userService.deleteUser(ids);
 
 		System.out.println("ids...");
 
-		return "redirect:/showUserByPage" + pageNow;
+		return "redirect:/showUserByPage";
 
 	}
 
 	// 修改用户  先查出来
 	@RequestMapping(value = "/updateUl/{uid}", method = RequestMethod.GET)
-	public String updateUl(@PathVariable(value = "uid") Integer id, HttpSession session) {
+	public String updateUl(@PathVariable(value = "uid") Integer id, Integer pageNow, HttpSession session) {
 
 		User user = this.userService.selectOne(id);
 		
