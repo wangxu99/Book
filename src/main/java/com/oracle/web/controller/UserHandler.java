@@ -2,12 +2,21 @@ package com.oracle.web.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -20,6 +29,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.oracle.web.bean.PageBean;
 import com.oracle.web.bean.User;
 import com.oracle.web.service.UserService;
+
+
 
 @Controller
 @Scope(value = "prototype")
@@ -200,7 +211,94 @@ public class UserHandler {
 	
 	
 
-	// 导出
+	// 导出图书
+		@RequestMapping(value = "/outPutUser/{ids0}", method = RequestMethod.GET)
+		public void
+		outPutUser(@PathVariable(value = "ids0") String ids,HttpServletResponse response) throws IOException {
+			 
+			List<User> list = null;
+			String key = "";
+			if (ids.equals("all")) {//传入a 表示导出全部
+				
+				list = this.userService.outPutUserAll();
+				key = "全部";
+
+			}else{ 
+				//System.out.println(ids1);
+				list = this.userService.outPutUserIds(ids);
+				key = "勾选";
+
+			}
+			//创件一个工作蒲
+			HSSFWorkbook Workbook = new HSSFWorkbook();
+			
+			//创建一个工作表
+			HSSFSheet sheet = Workbook.createSheet(key + "用户信息表");
+	          
+			sheet.setColumnWidth(7, 15 * 256); //设定列宽度
+			//设置样式
+			HSSFCellStyle style = Workbook.createCellStyle();
+			style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+			HSSFFont font = Workbook.createFont();
+			font.setBold(true);
+			font.setColor(HSSFColor.DARK_RED.index);
+			style.setFont(font);
+			String[] title = { "编号","姓名", "学号", "密码", "手机", "注册时间", "头像" };
+			HSSFRow row = sheet.createRow(0);//从0开始
+			for (int i = 0; i < title.length; i++) {
+				HSSFCell cell = row.createCell(i);
+				cell.setCellStyle(style);
+				cell.setCellValue(title[i]);
+			}
+			HSSFCellStyle style1 = Workbook.createCellStyle();
+			style1.setAlignment(HSSFCellStyle.ALIGN_CENTER);// 居中
+			// 设置字体样式
+			for (int i = 0; i < list.size(); i++) { 
+
+				HSSFRow row1 = sheet.createRow(i + 1);
+				User user = list.get(i);
+
+				HSSFCell cell1 = row1.createCell(0);
+				cell1.setCellStyle(style1);
+				cell1.setCellValue(user.getUid());
+
+				HSSFCell cell2 = row1.createCell(1);
+				cell2.setCellStyle(style1);
+				cell2.setCellValue(user.getUname());
+
+				HSSFCell cell3 = row1.createCell(2);
+				cell3.setCellStyle(style1);
+				cell3.setCellValue(user.getUsername());
+
+				HSSFCell cell4 = row1.createCell(3);
+				cell4.setCellStyle(style1);
+				cell4.setCellValue(user.getPassword());
+
+				HSSFCell cell5 = row1.createCell(4);
+				cell5.setCellStyle(style1);
+				cell5.setCellValue(user.getPhone());
+
+				HSSFCell cell6 = row1.createCell(5);
+				cell6.setCellStyle(style1);
+				cell6.setCellValue(user.getRegtime());
+
+				HSSFCell cell7 = row1.createCell(6);
+				cell7.setCellStyle(style1);
+				cell7.setCellValue(user.getTouxiang());
+
+				
+
+			}
+			 
+			 String fname = key +"用户信息表.xls"; 
+			response.setContentType("application/octet-stream");
+			response.setHeader("Content-disposition", "attachment;filename="+new String(fname.getBytes("UTF-8"), "iso-8859-1"));
+			response.flushBuffer();
+			 Workbook.write(response.getOutputStream());
+
+
+			 
+		}
 	
 	
 	

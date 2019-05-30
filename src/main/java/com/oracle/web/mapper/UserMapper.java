@@ -37,4 +37,10 @@ public interface UserMapper {
 	List<User> showByPage(int index);
 
 	User selectValidate(String username);
+
+	//导出选中
+	List<User> selectOutPutIds(List<Integer> list);
+
+	//导出全部
+	List<User> selectOutPutAll();
 }

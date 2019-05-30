@@ -170,11 +170,10 @@
 
 				var flag = confirm("你确定导出所勾选的用户信息吗？");
 				if (flag == true) {//确定
-					window.location.href = "OutPutUserServlet?action=outids&ids="
-							+ str;
-
+					 
+					window.location.href = "http://localhost/Book/outPutUser/" + str;
 				} else {//取消
-					window.location.href = "UserServlet?action=showPasgeUser&pageNow=${pb.pageNow}&ausername=${ausername  }";
+					window.location.href = "http://localhost/Book/showUserByPage";
 				}
 			}
 		};
@@ -184,10 +183,9 @@
 			var flag = confirm("你确定导出全部的用户信息吗？");
 
 			if (flag == true) {//确定
-				window.location.href = "OutPutUserServlet?action=all";
-
+				window.location.href ="http://localhost/Book/outPutUser/all";
 			} else {//取消
-				window.location.href = "UserServlet?action=showPasgeUser&pageNow=${pb.pageNow }&ausername=${ausername  }";
+				window.location.href = "http://localhost/Book/showUserByPage";
 			}
 
 		}

@@ -1,5 +1,6 @@
 package com.oracle.web.service.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -115,6 +116,30 @@ public class UserServiceImpl implements UserService {
 	public User validateUser(String username) {
 		// TODO Auto-generated method stub
 		return this.userMapper.selectValidate(username);
+	}
+
+
+	@Override
+	public List<User> outPutUserAll() {
+		// TODO Auto-generated method stub
+		
+		return this.userMapper.selectOutPutAll();
+	}
+
+
+	@Override
+	public List<User> outPutUserIds(String ids) {
+		// TODO Auto-generated method stub
+		
+		String[] a = ids.split(",");
+		 
+		 List<Integer> list =new ArrayList<Integer>();
+		 for (int i = 0; i < a.length; i++) {
+	           
+				list.add(Integer.parseInt(a[i]));
+				 
+			}
+		return this.userMapper.selectOutPutIds(list);
 	}
 
 }
