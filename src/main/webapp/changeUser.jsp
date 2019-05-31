@@ -14,7 +14,7 @@
 <title>修改用户信息</title>
 <script type="text/javascript" src="js/ajax.js"></script>
 <script >
-	/* $(function() {
+	 $(function() {
    
 		$("#f2").bootstrapValidator({
 			       
@@ -45,6 +45,41 @@
 
 									}
 								},
+								/* username : {
+									validators : {
+
+										notEmpty : {
+
+											message : '用户名不能为空'
+										},
+										stringLength : {
+											min : 3,
+											max : 15,
+											message : '用户名必须是3-15个字母或数字组成'
+										},
+										
+										// threshold :  6 , 有6字符以上才发送ajax请求，（input中输入一个字符，插件会向服务器发送一次，设置限制，6字符以上才开始）
+										remote : {//ajax验证。server result:{"valid",true or false} 向服务发送当前input name值，获得一个json数据。例表示正确：{"valid",true}  
+											url : "validateUser",//验证地址
+											message : '该用户名已存在',//提示消息
+											delay : 300,//每输入一个字符，就发ajax请求，服务器压力还是太大，设置2秒发送一次ajax（默认输入一个字符，提交一次，服务器压力太大）
+											type : 'GET',//请求方式
+
+											//自定义提交数据，默认值提交当前input value
+											data : function(validator) {
+												return {
+													username : $(
+															"input[name=username]")
+															.val()
+
+												}
+											}
+
+										}
+
+									}
+
+								}, */
 								password : {
 									validators : {
 										notEmpty : {
@@ -133,7 +168,7 @@
 
 						}); 
 
-	}); */
+	}); 
 </script>
 <style>
 #div1 {
@@ -191,9 +226,8 @@ hr {
   
 				<h2 class="text-center text-info">修改用户信息</h2>
 				<hr>
-				<form id="f1" action="UserServlet?action=updateTouxaing&ausername=${ausername  }"
-					method="post" enctype="multipart/form-data"
-					class="form-horizontal f1">
+				<form id="f1" action="updateTouxiang"  method="post"  enctype="multipart/form-data"  class="form-horizontal f1">
+					<input type="hidden" name="uid" value="${user.uid }"> 
 					<div class="form-group">
 						<label class="col-sm-3 col-sm-offset-2 control-label text-info">
 							<img src="${user.touxiang }" width="90" height="90">
@@ -204,22 +238,23 @@ hr {
 					 
 						<div class="col-sm-4  f1input2">
 						 
-						  <button class="btn  " type="submit">修改头像</button>					 
+						  <button class="btn" type="submit">修改头像</button>					 
 						</div>
 						</div>
 					 
 				</form>
 		  
-				<form id="f2" action="UserServlet?action=updateUser&ausername=${ausername  }"  method="post" class="form-horizontal">	
-				 <input type="hidden" name="id" value="${user.uid }">  				 
+				<form id="f2" action="User"  method="post" class="form-horizontal">
+				<input type="hidden" name="_method" value="PUT">	
+				 <input type="hidden" name="uid" value="${user.uid }">  				 
 					<div class="form-group">
 						<label class="col-sm-3 col-sm-offset-2 control-label text-info">姓名:</label>
 						<div class="col-sm-4">
-							<input type="text" name="name" value="${user.uname }" class="form-control input-sm" />
+							<input type="text" name="uname" value="${user.uname }" class="form-control input-sm" />
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-3 col-sm-offset-2 control-label text-info">用户名:</label>
+						<label class="col-sm-3 col-sm-offset-2 control-label text-info">学号:</label>
 						<div class="col-sm-4">
 							<input type="text" name="username" value="${user.username }"
 								class="form-control input-sm" disabled />

@@ -1,7 +1,12 @@
 package com.oracle.web.bean;
 
 public class User {
-    private Integer uid;
+    public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	private Integer uid;
 
     private String uname;
 

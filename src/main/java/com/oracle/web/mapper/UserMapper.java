@@ -27,6 +27,7 @@ public interface UserMapper {
 
     int updateByExample(@Param("record") User record, @Param("example") UserExample example);
 
+  //修改
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
@@ -38,4 +39,12 @@ public interface UserMapper {
 	User UserLoginYanZheng(String username);//用户登录/注册校验--wx
 
 	 
+
+	User selectValidate(String username);
+
+	//导出选中
+	List<User> selectOutPutIds(List<Integer> list);
+
+	//导出全部
+	List<User> selectOutPutAll();
 }

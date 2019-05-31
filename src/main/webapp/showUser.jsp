@@ -112,8 +112,7 @@
 				if (flag == true) {//确定
 					//拿到请求地址
 
-					var $url = "http://localhost/Book/User/" + str
-							+ "/${pb.pageNow}";
+					var $url = "http://localhost/Book/User/" + str;
 					/* var $url = "http://localhost/Book/deleteUser/" + str
 						+ "/${pb.pageNow}";  */
 
@@ -170,11 +169,10 @@
 
 				var flag = confirm("你确定导出所勾选的用户信息吗？");
 				if (flag == true) {//确定
-					window.location.href = "OutPutUserServlet?action=outids&ids="
-							+ str;
-
+					 
+					window.location.href = "http://localhost/Book/outPutUser/" + str;
 				} else {//取消
-					window.location.href = "UserServlet?action=showPasgeUser&pageNow=${pb.pageNow}&ausername=${ausername  }";
+					window.location.href = "http://localhost/Book/showUserByPage";
 				}
 			}
 		};
@@ -184,10 +182,9 @@
 			var flag = confirm("你确定导出全部的用户信息吗？");
 
 			if (flag == true) {//确定
-				window.location.href = "OutPutUserServlet?action=all";
-
+				window.location.href ="http://localhost/Book/outPutUser/all";
 			} else {//取消
-				window.location.href = "UserServlet?action=showPasgeUser&pageNow=${pb.pageNow }&ausername=${ausername  }";
+				window.location.href = "http://localhost/Book/showUserByPage";
 			}
 
 		}
@@ -263,12 +260,12 @@
 									<td>id</td>
 									<td>头像</td>
 									<td>姓名</td>
-									<td>用户名</td>
+									<td>学号</td>
 									<td>密码</td>
 									<td>手机</td>
 									<td>注册时间</td>
 									<td><button id="dfd">删除</button></td>
-									<td>图书借阅情况</td>
+									<!-- <td>图书借阅情况</td> -->
 									<td>修改</td>
 								</tr>
 								<c:forEach items="${pb.beanList  }" var="u" varStatus="uu">
@@ -282,10 +279,10 @@
 										<td>${u.phone}</td>
 										<td>${u.regtime}</td>
 										<td><input type="checkbox" name="ids" value="${u.uid }"></td>
-										<td><a
+										<!-- <td><a
 											href=UserServlet?action=showOneBooktime&id=${s.id}&pageNow=${pb.pageNow}&ausername=${ausername}'>
 												<input type="button" value="查看" class="btn btn-info btn-sm" />
-										</a></td>
+										</a></td> -->
 
 										<%-- <td><a href="updateUl${u.uid}&pageNow=${pb.pageNow}"><input
 												type="button" value="修改" class="btn btn-info btn-sm" /></a></td> --%>
