@@ -9,4 +9,12 @@ public interface UserForegroundService {
 	User UserLoginYanZheng(String username);
 
 	PageBean<BookAndFenlei> showguihuan(Integer pageNow, Integer uid);
+
+	int jieshu(Integer uid, Integer bid);
+ 
+	int bstockUpdateG(Integer bid);
+
+	int huanshu(Integer btid);
+
+	int bstockUpdateH(Integer bid);
 }

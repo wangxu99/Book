@@ -190,7 +190,7 @@ height: 600px;
 										<td>${s.author}</td>
 										<td>${s.stock}</td>
 										<td><c:choose>
-												<c:when test="${empty qusername }">
+												<c:when test="${empty username }">
 													<a href="#" id="jieshu"
 														class="  btn  btn-sm  btn-default not"> 借阅 </a> &nbsp;&nbsp;&nbsp;&nbsp;
 						                       
@@ -198,7 +198,7 @@ height: 600px;
 												<c:otherwise>
 													<c:if test="${s.stock!=0}">
 														<a
-															href=" UserForegroundServlet?action=jieshu&pageNew=${pb.pageNew+1 }&id=${s.id }&qusername=${qusername }&name=${s.name}"
+															href="http://localhost/Book/jieshu/${uid}/${s.bid}/${pb.pageNow}"
 															id="jieshu" class="btn btn-info btn-sm "> 借阅 </a>
 													<%-- 	<a
 															href="<%=base%>UserForegroundServlet?action=huanshu&pageNew=${pb.pageNew+1 }&id=${s.id }&qusername=${qusername }"

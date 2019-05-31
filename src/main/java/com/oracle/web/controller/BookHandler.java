@@ -159,10 +159,11 @@ public class BookHandler {
 	// 添加图书
 	// 转发forward:/.... 重定向:redirect:/...
 	@RequestMapping(value = "/addBook", method = RequestMethod.POST)
-	public String addBook(Book book) {
+	public String addBook(Book book,HttpServletRequest request) {
 		// System.out.println(monster.toString());
 		int i = this.bookService.save(book);
 		if (i == 1) {
+			request.setAttribute("mag", "添加图书成功");
 			return "redirect:/showBookHandler/1";
 		} else {
 			return "forward:/addBookUl";

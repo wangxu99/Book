@@ -308,4 +308,12 @@
 		stock = #{stock,jdbcType=INTEGER}
 		where bid = #{bid,jdbcType=INTEGER}
 	</update>
+	<!--  借书库存信息修改 借书 -->
+		<update id="bstockUpdateG" parameterType="java.lang.Integer">
+	UPDATE book SET  stock = stock-1 WHERE bid = #{id};
+	</update>
+	<!--  借书库存信息修改  还书-->
+		<update id="bstockUpdateH" parameterType="java.lang.Integer">
+	UPDATE book SET  stock = stock+1 WHERE bid = #{id};
+	</update>
 </mapper>

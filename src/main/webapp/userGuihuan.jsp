@@ -21,12 +21,12 @@
 
 <style>
 #div3 {
-	height: 500px;
+	height: 800px;
 	/* 	background-image: url("tu/t7.jpg"); */
 	background-size: cover;
 }
  #div4 {
-	height: 500px;
+	height: 800px;
 	/* 	background-image: url("tu/t7.jpg"); */
 	background-size: cover;
 }
@@ -62,8 +62,8 @@
 						<div class="col-md-5 col-md-offset-3">
 							<font size="7" color="#337AB7" face="宋体">
 							<strong>待还图书信息</strong></font><br>
-							<font size="1" color="#337AB7" face="宋体" color="#D2463D">
-							（温馨提示:待归还期限小于5天报红）</font>
+							<font size="1"   face="宋体" color="#D2463D">
+							（温馨提示:归还期限 小于5天 报红）</font>
 						</div>
 				</tr>
 
@@ -102,7 +102,7 @@
 								 <td>${s.htime}</td>
 								 </c:if> 
 							 <td><a
-							 href=" "
+							 href="http://localhost/Book/huanshu/${s.bt.btid}/${s.bid}/${pb.pageNow}"
 							 class="btn  btn-info  btn-sm"> 还书 </a></td>
 							 
 							</c:forEach> 
