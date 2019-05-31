@@ -209,6 +209,10 @@ public class UserHandler {
 	}
 	
 	
+	//查看用户图书借阅情况
+	
+	
+	
 
 	// 导出图书
 		@RequestMapping(value = "/outPutUser/{ids0}", method = RequestMethod.GET)
