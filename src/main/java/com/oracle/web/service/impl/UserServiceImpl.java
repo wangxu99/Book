@@ -94,12 +94,6 @@ public class UserServiceImpl implements UserService {
 	}
 
  
-	//用户登录/注册校验--wx
-	@Override
-	@Transactional
-	public User UserLoginYanZheng(String username) {
-		// TODO Auto-generated method stub
-		return  this.userMapper.UserLoginYanZheng(username);
-	}
+ 
 
 }

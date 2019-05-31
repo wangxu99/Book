@@ -1,9 +1,13 @@
 package com.oracle.web.controller;
 
-import java.io.File;
+
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,9 +20,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.oracle.web.bean.Admin;
+
 import com.oracle.web.bean.Book;
 import com.oracle.web.bean.BookAndFenlei;
 import com.oracle.web.bean.Fenlei;
@@ -26,6 +29,7 @@ import com.oracle.web.bean.PageBean;
 import com.oracle.web.bean.User;
 import com.oracle.web.service.BookService;
 import com.oracle.web.service.FenleiService;
+import com.oracle.web.service.UserForegroundService;
 import com.oracle.web.service.UserService;
 
 @Controller
@@ -33,7 +37,7 @@ import com.oracle.web.service.UserService;
 public class UserForegroundHandler {
 
 	@Autowired
-	private UserService userService;
+	private UserForegroundService  userForegroundService;
 	
 	@Autowired
 	private BookService bookService;
@@ -47,7 +51,7 @@ public class UserForegroundHandler {
 	public String loginYanZheng(@RequestParam(value = "username") String username,
 			@RequestParam(value = "password") String password,HttpSession session){ 
 		 
-		 User user2=this.userService.UserLoginYanZheng(username);
+		 User user2=this.userForegroundService.UserLoginYanZheng(username);
 		
 	 	 
 		if (user2 == null) {
@@ -63,6 +67,7 @@ public class UserForegroundHandler {
 
 			//resp.getWriter().write("{\"valid\":\"true\"}");
 			session.setAttribute("username", username);
+			session.setAttribute("uid", user2.getUid());
 			return "userindex";
 		}
  
@@ -74,7 +79,7 @@ public class UserForegroundHandler {
 	public void userloginYZ(@RequestParam(value = "username") String username,
 			@RequestParam(value = "password") String password, HttpServletResponse response) throws IOException{ 
 			 
-			 User user2=this.userService.UserLoginYanZheng(username);
+			 User user2=this.userForegroundService.UserLoginYanZheng(username);
 			
 		 	 
 			if (user2 == null) {
@@ -93,7 +98,41 @@ public class UserForegroundHandler {
 			}
 	 
 			} 
-	
+		// 用户借书情况
+		@RequestMapping(value = "/showguihuan/{uid}/{pageNow}", method = RequestMethod.GET)
+		public String showguihuan(@PathVariable(value = "pageNow") Integer pageNow,@PathVariable(value = "uid") Integer uid, HttpServletRequest request) {
+		 
+			PageBean<BookAndFenlei> pb = this.userForegroundService.showguihuan(pageNow,uid);	 
+		//	List<Fenlei> flist = this.fenleiService.selectFenleiAll();
+			//request.setAttribute("flist", flist);
+			 SimpleDateFormat ss = new SimpleDateFormat("yyyy-MM-dd");
+			 Calendar c = Calendar.getInstance();
+			List<BookAndFenlei> list1=pb.getBeanList();
+			Date date = new Date();
+			for (BookAndFenlei bt : list1) {
+				String time = bt.getBt().getTime();
+				 
+ 			     try {
+					c.setTime(ss.parse(time));
+					c.add(Calendar.DATE, 30);
+	 				String huan1 = ss.format(c.getTime());
+	 				bt.setHtime(huan1);
+	 				long intervalMilli = c.getTime().getTime() - date.getTime();
+	 			 Integer date1 = (int) (intervalMilli / (24 * 60 * 60 * 1000));
+	 			 bt.setDate(date1);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+ 				
+            
+			}
+			 
+			request.setAttribute("pb", pb); 
+
+			return "userGuihuan";
+
+		}
 	// 全查分页
 		@RequestMapping(value = "/userForegroundBook/{pageNow}", method = RequestMethod.GET)
 		public String userForegroundBook(@PathVariable(value = "pageNow") Integer pageNow, HttpServletRequest request) {

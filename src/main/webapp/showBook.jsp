@@ -189,7 +189,7 @@
 
 #div3 {
 	margin-top: 30px;
-	width: 1000px;
+	width: 1500px;
 	height: 520px;
 	margin-left: 30px;
 }
@@ -210,7 +210,7 @@
 }
 
 #tb2 {
-	width: 800px;
+	width: 1500px; 
 }
 
 .r2 {
@@ -316,6 +316,7 @@
 
 					</ul></li>
 			</ul>
+			</div>
 			<div class="container-fluid " id="div3">
 				<table id="t">
 					<tr height="6%">
@@ -326,7 +327,7 @@
 					<tr align="center">
 						<td>
 							<table class="table table-bordered table-hover " cellspacing="0"
-								cellpadding="20" id="tb2">
+								cellpadding="30" id="tb2" >
 								<tr align="center">
 								    <td>编号</td>
 									<td>图书编号</td>
@@ -506,7 +507,7 @@
 	
 				</table>
 			</div>
-		</div>
+		
 	</div>
 </body>
 </html>
