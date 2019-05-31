@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.oracle.web.mapper.AdminMapper;
 import com.oracle.web.service.AdminService;
-import com.oralce.web.bean.Admin;
+import com.oracle.web.bean.Admin;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -35,5 +35,9 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		return this.adminMapper.selectByPrimaryKey(username);
 	}
+
+
+
+	
 
 }

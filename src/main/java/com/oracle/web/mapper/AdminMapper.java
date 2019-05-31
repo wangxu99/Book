@@ -28,9 +28,9 @@ public interface AdminMapper {
 
 	    int updateByPrimaryKey(Admin record);
 
-		com.oralce.web.bean.Admin selectByPrimaryKey(String username);
+		com.oracle.web.bean.Admin selectByPrimaryKey(String username);
 
-		int insert(com.oralce.web.bean.Admin admin);
+		int insert1(com.oracle.web.bean.Admin admin);
 
-		com.oralce.web.bean.Admin selectone(com.oralce.web.bean.Admin admin);
+		com.oracle.web.bean.Admin selectone(com.oracle.web.bean.Admin admin);
 }
