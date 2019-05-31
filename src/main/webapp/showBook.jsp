@@ -188,8 +188,8 @@
 }
 
 #div3 {
-	margin-top: 30px;
-	width: 1500px;
+	margin-top: 10px;
+	width: 800px;
 	height: 520px;
 	margin-left: 30px;
 }
@@ -210,7 +210,7 @@
 }
 
 #tb2 {
-	width: 1500px; 
+	width: 800px; 
 }
 
 .r2 {
@@ -316,7 +316,7 @@
 
 					</ul></li>
 			</ul>
-			</div>
+			
 			<div class="container-fluid " id="div3">
 				<table id="t">
 					<tr height="6%">
@@ -507,7 +507,7 @@
 	
 				</table>
 			</div>
-		
+		</div>
 	</div>
 </body>
 </html>

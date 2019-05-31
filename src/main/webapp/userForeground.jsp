@@ -41,19 +41,19 @@
 </script>
 <style>
 #div3 {
-	margin-top: 70px;
-	width: 1300px;
-	height: 800px;
+	margin-top: 40px;
+	width: 1000px;
+	height: 750px;
 	 
 }
-
 .footer {
 	color: #777;
 	border-top: 1px solid #e5e5e5;
 	text-align: center;
-	padding: 40px 0;
-	  margin-top: 200px;
+	 padding-top: 40px;
+	 margin-top: 0px;
 }
+
  
 .fm {
 	margin-top: 10px;
@@ -62,14 +62,10 @@
 	color: #337AB7;
 	width: 400px;
 }
-#div2 {
-    margin-top:20px;
-	margin-left: 10px;
-}
-
+ 
 #t{
 width:1000px;
-height: 600px;
+height: 500px;
 }
 </style>
 </head>
@@ -144,17 +140,17 @@ height: 600px;
 											<span class="glyphicon glyphicon-search"></span>
 											 开始搜索
 										</button>
-										<br> 
-										<br>
+										
 									</div>
 								</div>
-
+                                <br> 
+										 
 							</form>
 						</li>
 
 			 </ul></li>
 			</ul>
-        </div>
+       </div>
 		<div class="container-fluid " id="div3">
 				<table id="t"  >
 					<tr height="6%">
@@ -166,8 +162,8 @@ height: 600px;
 
 					<tr align="center">
 						<td>
-							<table class="table table-bordered table-hover " cellspacing="0"
-								cellpadding="20" id="tb2">
+							<table class="table table-bordered table-hover "
+							 cellspacing="0" cellpadding="20" id="tb2">
 								<tr align="center">
 									<td>编号</td>
 									<td>图书编号</td>
@@ -283,7 +279,7 @@ height: 600px;
 							</c:if> 
 							
 							<c:if test="${showPesge=='showBook'}"> 
-								<p>第${pb.pageNow }页/共${pb.pages } 
+								<p>第${pb.pageNow }页/共${pb.pages } 	</p>
 							
 								<ul class="pagination ">
 
@@ -346,7 +342,7 @@ height: 600px;
 										href="http://localhost/Book/userForegroundBook/${pb.pages}">尾页
 								</a>
 								</li>
-								</p>
+							
 				
 							</ul> 
 							</c:if> <br>
@@ -355,16 +351,16 @@ height: 600px;
 					</tr>
 				</table>
 			</div>
-				
-			 <footer class="footer">
+		
+		
+	 		
+	  <footer class="footer">
 			<!-- 下 -->
 
 			<h4>
 				<font size="3" color="#b1b1b1">图书管理系统版权所有&copy;2019-2030</font>
 			</h4>
 		</footer>
-		</div>
-	 
- 
+  </div>
 </body>
 </html>
