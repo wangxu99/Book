@@ -15,40 +15,36 @@
 <title>修改分类</title>
 <script type="text/javascript" src="js/ajax.js"></script>
 <script>
- 
-	 
-	$(function(){
+	$(function() {
 		$(".form-horizontal").bootstrapValidator({
-			feedbackIcons:{
-				 valid: 'glyphicon glyphicon-ok',
-		            invalid: 'glyphicon glyphicon-remove',
-		            validating: 'glyphicon glyphicon-refresh'
-				
-			}, 
-			fields: {
-			 
-				 name : {
+			feedbackIcons : {
+				valid : 'glyphicon glyphicon-ok',
+				invalid : 'glyphicon glyphicon-remove',
+				validating : 'glyphicon glyphicon-refresh'
+
+			},
+			fields : {
+
+				fname : {
 					validators : {
 
 						notEmpty : {
 
 							message : '分类名不能为空'
 						},
-			 
+
 						// threshold :  6 , 有6字符以上才发送ajax请求，（input中输入一个字符，插件会向服务器发送一次，设置限制，6字符以上才开始）
 						remote : {//ajax验证。server result:{"valid",true or false} 向服务发送当前input name值，获得一个json数据。例表示正确：{"valid",true}  
-							url : "FenleiServlet",//验证地址
-							 //提示消息
+							url : "http://localhost/Book/yzfenleiupdate",//验证地址
+							message : '该分类下已存在',//提示消息
 							delay : 500,//每输入一个字符，就发ajax请求，服务器压力还是太大，设置2秒发送一次ajax（默认输入一个字符，提交一次，服务器压力太大）
-							type : 'POST',//请求方式
+							type : 'GET',//请求方式
 
 							//自定义提交数据，默认值提交当前input value
 							data : function(validator) {
 								return {
-									action : "yanzheng",
-									 name : $(
-											"input[name=name]")
-											.val()
+									action : "yzfenleiupdate",
+									fname : $("#fname").val()
 
 								}
 							}
@@ -57,29 +53,22 @@
 
 					}
 
-				} 
-			 
-			
-		}
-		
-			 
+				}
+
+			}
+
 		})
-		
+
 	});
-
-
-
 </script>
 <style>
 #div1 {
- 
 	margin-top: 60px;
-	 border:1px solid #D7E4E8; 
+	border: 1px solid #D7E4E8;
 }
 
 form {
-	margin-top:30px;
- 
+	margin-top: 30px;
 	width: 900px;
 }
 
@@ -90,25 +79,28 @@ form {
 .btn {
 	margin-top: 30px;
 }
-h3{
-margin-top: 30px;
+
+h3 {
+	margin-top: 30px;
 }
-label{
-   font-size: 15px;
+
+label {
+	font-size: 15px;
 }
-hr{
-border: 1px solid #D7E4E8;
- width: 500px;
+
+hr {
+	border: 1px solid #D7E4E8;
+	width: 500px;
 }
-#div9{
-		 
+
+#div9 {
 	height: 700px;
 	margin-top: 20px;
 }
 </style>
 </head>
-<body  >
-<div class="container-fluid" id="div9">
+<body>
+	<div class="container-fluid" id="div9">
 		<c:if test="${!empty mag }">
 			<script>
 				alert("${mag}");
@@ -118,38 +110,45 @@ border: 1px solid #D7E4E8;
 		<!--  <marquee align="texttop" behavior="slide" scrollamount="60"
 			direction="up">-->
 		<div class="col col-md-8 col-md-offset-1" id="div1">
-	<h2 class="text-center text-info">修改分类</h2>
-             <hr >
-	<table > 
-		<tr  >
-			<td  > 
-		 <form   class="form-horizontal" action="FenleiServlet?action=update&pageNew=${pageNew}&ausername=${ausername }" method="post" >
-				<input type='hidden' name='id' value="${fl.id }" />
-				 
-	              	<div class="form-group f1">
+			<h2 class="text-center text-info">修改分类</h2>
+			<hr>
+			<table>
+				<tr>
+					<td>
+						<form class="form-horizontal"
+							action="http://localhost/Book/fenleiupdate"
+							method="post">
+							<input type='hidden' name='fid' value="${f.fid }" />
+
+							<div class="form-group f1">
 								<label class="col-sm-5  control-label text-info">请输入新的分类的名字:</label>
 								<div class="col-sm-4">
-								<input type="text" name="name" value="${fl.name }"  class="form-control input-md"/> 
-                           	</div>
+									<input type="text" name="fname" value="${f.fname }"
+										class="form-control input-md" />
+								</div>
 							</div>
-	 	     <div class="form-group">
-				<div class="col-sm-2 col-sm-offset-5 ">
-					<button type="submit" class="btn btn-success">
-						 修改    <span class="glyphicon glyphicon-cog"></span>
-					</button>
-				</div>
-				
-				<div class="col-sm-2    ">
-				 
-						<a href="FenleiServlet?action=showPasgefl&pageNew=${pageNew}&ausername=${ausername }"  class="btn btn-info ">返回     <span class="glyphicon glyphicon-repeat"></span></a>
-					 
-				</div>
-				</div>
-				 
-				</form></td>
-		</tr>
-	</table>
-	<br>
+							<div class="form-group">
+								<div class="col-sm-2 col-sm-offset-5 ">
+									<button type="submit" class="btn btn-success">
+										修改 <span class="glyphicon glyphicon-cog"></span>
+									</button>
+								</div>
+
+								<div class="col-sm-2    ">
+
+									<a
+										href="http://localhost/Book/fenleis/1/${pageNow }"
+										class="btn btn-info ">返回 <span
+										class="glyphicon glyphicon-repeat"></span></a>
+
+								</div>
+							</div>
+
+						</form>
+					</td>
+				</tr>
+			</table>
+			<br>
 		</div>
 
 		<!-- </marquee>-->

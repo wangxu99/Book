@@ -35,4 +35,8 @@ public interface FenleiMapper {
 	List<Fenlei> selectAllByPageHelper();
 
 	int counts();
+
+	int yanzhengAddFenlei2(Integer fid);
+
+	
 }

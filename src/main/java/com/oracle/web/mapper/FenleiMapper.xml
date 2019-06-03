@@ -172,4 +172,8 @@
     select * from fenlei  order by fenlei.fid desc 
 	</select>
      
+       
+	<select id="yanzhengAddFenlei2" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    SELECT COUNT(*) FROM book WHERE flid =#{fid}
+	</select>
 </mapper>

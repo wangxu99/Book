@@ -25,6 +25,12 @@ public interface FenleiService {
 
 	int counts();
 
+	Fenlei yanzhengAddFenlei(String fname);
+
+	int yanzhengAddFenlei2(Integer fid);
+
+	 
+
 	 
  
 
