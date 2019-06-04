@@ -1,5 +1,6 @@
 package com.oracle.web.mapper;
 
+import com.oracle.web.bean.BookAndFenlei;
 import com.oracle.web.bean.BookTime;
 import com.oracle.web.bean.BookTimeExample;
 import java.util.List;
@@ -27,4 +28,7 @@ public interface BookTimeMapper {
     int updateByPrimaryKeySelective(BookTime record);
 
     int updateByPrimaryKey(BookTime record);
+
+	List<BookAndFenlei> showguihuan(Integer uid);//用户借书情况查看
+ 
 }

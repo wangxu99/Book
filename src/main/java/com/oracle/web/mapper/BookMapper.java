@@ -4,6 +4,8 @@ import com.oracle.web.bean.Book;
 import com.oracle.web.bean.BookAndFenlei;
 import com.oracle.web.bean.BookExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface BookMapper {
@@ -18,7 +20,7 @@ public interface BookMapper {
     int insertSelective(Book record);
 
     List<Book> selectByExample(BookExample example);
-    List<BookAndFenlei> selectByGji(Book book);
+    
     Book selectByPrimaryKey(Integer bid);
 
     int updateByExampleSelective(@Param("record") Book record, @Param("example") BookExample example);
@@ -29,5 +31,16 @@ public interface BookMapper {
 
     int updateByPrimaryKey(Book record);
 
-	List<BookAndFenlei> selectBookAll();
+	List<BookAndFenlei> selectBookAll();//自定义全查分页
+	   
+    List<BookAndFenlei> selectByGji(Book book);//自己定义高级搜索
+    
+    List<BookAndFenlei> selectOutPutIds(List<Integer> list);
+
+    int bstockUpdateG(Integer bid);//借书库存修改
+
+	int bstockUpdateH(Integer bid);//还书库存修改
+
+	
+ 
 }

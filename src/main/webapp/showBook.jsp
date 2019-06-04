@@ -159,8 +159,8 @@
 
 				var flag = confirm("你确定导出所勾选的图书信息吗？");
 				if (flag == true) {//确定
-					window.location.href = " OutPutBookServlet?action=outids&ids="
-							+ str;
+				 
+					window.location.href = "http://localhost/Book/outPutBook/" + str;
 
 				} else {//取消
 					window.location.href = "http://localhost/Book/showBookHandler/${pb.pageNow}";
@@ -172,7 +172,7 @@
 		outAll.onclick = function() {
 			var flag = confirm("你确定导出全部的图书信息吗？");
 			if (flag == true) {//确定
-				window.location.href = " OutPutBookServlet?action=all";
+				window.location.href ="http://localhost/Book/outPutBook/a";
 
 			} else {//取消
 				window.location.href = "http://localhost/Book/showBookHandler/${pb.pageNow}";
@@ -188,8 +188,8 @@
 }
 
 #div3 {
-	margin-top: 30px;
-	width: 1000px;
+	margin-top: 10px;
+	width: 800px;
 	height: 520px;
 	margin-left: 30px;
 }
@@ -210,7 +210,7 @@
 }
 
 #tb2 {
-	width: 800px;
+	width: 800px; 
 }
 
 .r2 {
@@ -316,6 +316,7 @@
 
 					</ul></li>
 			</ul>
+			
 			<div class="container-fluid " id="div3">
 				<table id="t">
 					<tr height="6%">
@@ -326,8 +327,9 @@
 					<tr align="center">
 						<td>
 							<table class="table table-bordered table-hover " cellspacing="0"
-								cellpadding="20" id="tb2">
+								cellpadding="30" id="tb2" >
 								<tr align="center">
+								    <td>编号</td>
 									<td>图书编号</td>
 									<td>分类名称</td>
 									<td>图书名称</td>
@@ -341,6 +343,7 @@
 								<c:forEach items="${pb.beanList }" var="s" varStatus="ss">
 									<tr align='center'>
 										<td>${ss.index+1}</td>
+										<td>${s.bid}</td>
 										<td>${s.fenlei.fname}</td>
 										<td>${s.bname}</td>
 										<td>${s.money}</td>

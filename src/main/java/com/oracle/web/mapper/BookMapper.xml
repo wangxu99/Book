@@ -91,14 +91,15 @@
 			order by ${orderByClause}
 		</if>
 	</select>
+	<!-- 自定义 高级搜索 -->
 	<select id="selectByGji" parameterType="com.oracle.web.bean.Book" resultMap="BookAndFenlei">
-		 select * from book,fenlei 
+		 select * from book,fenlei
   <where>
      <if test="flid!=0">
      And flid=#{flid}
      </if>
     <if test="bname != null and bname !='' ">
-     And bname=#{bname}
+     And bname like '%${bname}%'
      </if>
      <if test="money !=null and money !='' ">
      And money=#{money}
@@ -107,7 +108,7 @@
      And press=#{press}
      </if>
      <if test="author !=null and author !='' ">
-     And author=#{author}
+     And author like '%${author}%'
      </if>
      <if test="stock !=null and stock !='' ">
      And stock=#{stock}
@@ -115,6 +116,7 @@
   </where>
        And book.flid=fenlei.fid  order by book.bid desc
 	</select>
+	
 	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
 		resultMap="BaseResultMap">
 		select
@@ -122,6 +124,20 @@
 		from book
 		where bid = #{bid,jdbcType=INTEGER}
 	</select>
+
+  <select id="selectOutPutIds"  parameterType="list" resultMap="BookAndFenlei">	<!-- 自定义 选择导出 -->
+		select * from book,fenlei 
+    
+     <where>
+		book.flid=fenlei.fid and bid in
+		<foreach collection="list" item="id" open="(" separator="," close=")" >
+		     #{id}
+	 </foreach>
+	 
+   </where> 
+		 order by book.bid desc
+	</select>
+	
 	<!-- 王旭新增 分页查询book和分类名 -->
 	<select id="selectBookAll" resultMap="BookAndFenlei">
 		select * from book,fenlei where book.flid=fenlei.fid order
@@ -291,5 +307,13 @@
 		author = #{author,jdbcType=VARCHAR},
 		stock = #{stock,jdbcType=INTEGER}
 		where bid = #{bid,jdbcType=INTEGER}
+	</update>
+	<!--  借书库存信息修改 借书 -->
+		<update id="bstockUpdateG" parameterType="java.lang.Integer">
+	UPDATE book SET  stock = stock-1 WHERE bid = #{id};
+	</update>
+	<!--  借书库存信息修改  还书-->
+		<update id="bstockUpdateH" parameterType="java.lang.Integer">
+	UPDATE book SET  stock = stock+1 WHERE bid = #{id};
 	</update>
 </mapper>

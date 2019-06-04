@@ -91,6 +91,10 @@
     from user
     where uid = #{uid,jdbcType=INTEGER}
   </select>
+  <!--  用户登录,注册校验 wx -->
+   <select id="UserLoginYanZheng" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from user where username = #{username}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user
     where uid = #{uid,jdbcType=INTEGER}
@@ -158,6 +162,25 @@
       </if>
     </trim>
   </insert>
+  <!--导出选中-->
+  <select id="selectOutPutIds" resultType="user">
+  			select * from user 
+    
+     <where>
+		 uid in
+		<foreach collection="list" item="id" open="(" separator="," close=")" >
+		     #{id}
+	 </foreach>
+	 
+   </where> 
+		 order by uid desc
+  </select>
+  
+ <!--导出全部-->
+  <select id="selectOutPutAll" parameterType="list" resultType="user">
+  	select * from user order by uid desc
+  </select>
+ 
   <select id="countByExample" parameterType="com.oracle.web.bean.UserExample" resultType="java.lang.Long">
     select count(*) from user
     <if test="_parameter != null">
@@ -247,5 +270,8 @@
   <!--分页-->
   <select id="showByPage" parameterType="int" resultType="user">
     select * from user order by uid desc limit #{index},8
+  </select>
+  <select id="selectValidate" parameterType="String" resultType="user">
+  	select * from user where username = #{username}
   </select>
 </mapper>

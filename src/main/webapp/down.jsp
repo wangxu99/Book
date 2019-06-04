@@ -18,7 +18,7 @@
 <style type="text/css">
  .footer {
 	color: #777;
-	border-top: 1px solid #e5e5e5;
+	 /*  border-top: 1px solid #e5e5e5;  */
 	text-align: center;
 	padding:  0px 0;
 	 margin-top: 0px;
@@ -32,7 +32,7 @@
 			<!-- 下 -->
  <br>
 			<h4>
-				<font size="3" color="#b1b1b1">图书管理系统(wly)版权所有 &copy; 2019-2030</font>
+				<font size="3" color="#b1b1b1">图书管理系统版权所有 &copy; 2019-2030</font>
 			</h4>
 		</footer> 
 			</div>

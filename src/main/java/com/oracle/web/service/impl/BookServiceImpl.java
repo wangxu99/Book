@@ -1,7 +1,10 @@
 package com.oracle.web.service.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -114,9 +117,32 @@ public class BookServiceImpl implements BookService {
 
 	// 修改图书
 	@Override
+	@Transactional
 	public void updateBook(Book book) {
 		// TODO Auto-generated method stub
 		this.bookMapper.updateByPrimaryKey(book);
+	}
+
+	@Override
+	@Transactional
+	public List<BookAndFenlei> outPutBookAll() {
+		// TODO Auto-generated method stub
+		return this.bookMapper.selectBookAll();
+	}
+
+	@Override
+	@Transactional
+	public List<BookAndFenlei> outPutBookIds(String ids1) {
+		// TODO Auto-generated method stub
+		String[] a = ids1.split(",");
+ 
+		 List<Integer> list =new ArrayList<Integer>();
+		 for (int i = 0; i < a.length; i++) {
+	           
+				list.add(Integer.parseInt(a[i]));
+				 
+			}
+		return this.bookMapper.selectOutPutIds(list);
 	}
 
 }
