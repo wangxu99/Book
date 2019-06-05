@@ -112,7 +112,7 @@ public class UserForegroundHandler {
 	}
 	
 	//huanshu/${uid}/${s.bid}
-	 //用户借书
+	 //用户还书
 		@RequestMapping(value = "/huanshu/{btid}/{bid}/{pageNow}", method = RequestMethod.GET)
 		public String huanshu(@PathVariable(value = "btid") Integer btid,@PathVariable(value = "bid") Integer bid,
 				@PathVariable(value = "pageNow") Integer pageNow, HttpServletRequest request) {

@@ -71,13 +71,13 @@ margin-top: 4px;
 			<div class="col col-md-2 " id="ts">
 				<h4 id="userlogin">
 					<c:if test="${empty ausername  }">
-						<a href='<%=base%>login.jsp' target="_top"><font size="3px;"  color="#F2F2F2">请登录
+						<a href='login.jsp' target="_top"><font size="3px;"  color="#F2F2F2">请登录
 						</font></a> 
 					</c:if>
 					<c:if test="${!empty ausername  }">
 						<font   size="3px;" color="#FFFFFF"> ${ausername},欢迎您 </font>&nbsp;<font size="4"
 						color="#F2F2F2">|</font>&nbsp;<a
-							href='<%=base%>exit.jsp' target="_top"><font size="3px;" color="#FFFFFF">退出
+							href='exit.jsp' target="_top"><font size="3px;" color="#FFFFFF">退出
 						</font></a>
 					</c:if>
 				</h4>
