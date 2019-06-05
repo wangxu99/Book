@@ -1,5 +1,6 @@
 package com.oracle.web.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-
+import com.oracle.web.bean.Book;
+import com.oracle.web.bean.BookExample;
 import com.oracle.web.bean.Fenlei;
 import com.oracle.web.bean.FenleiExample;
 import com.oracle.web.bean.PageBean;
@@ -128,9 +130,51 @@ public class FenleiServiceImpl implements FenleiService {
 	}
 
 	@Override
+	@Transactional
 	public int yanzhengAddFenlei2(Integer fid) {
 		// TODO Auto-generated method stub
 		
 		return this.fenleiMapper.yanzhengAddFenlei2(fid);
+	}
+
+	//导出分类
+	@Override
+	@Transactional
+	public List<Fenlei> outPutFenLeiAll() {
+		// TODO Auto-generated method stub
+		return this.fenleiMapper.selectAllByPageHelper();
+	}
+
+	@Override
+	@Transactional
+	public List<Fenlei> outPutFenleiIds(String ids1) {
+		// TODO Auto-generated method stub
+		String[] a = ids1.split(",");
+		 
+		 List<Integer> list =new ArrayList<Integer>();
+		 for (int i = 0; i < a.length; i++) {
+	           
+				list.add(Integer.parseInt(a[i]));
+				 
+			}
+		return this.fenleiMapper.selectOutPutIds(list);
+	}
+
+	//添加分类验证
+	@Override
+	@Transactional
+	public Fenlei yanzhengAddFenlei(String fname, String fid) {
+		// TODO Auto-generated method stub
+		FenleiExample example = new FenleiExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andFidEqualTo(Integer.parseInt(fid));
+		criteria.andFnameEqualTo(fname);
+		List<Fenlei> list = this.fenleiMapper.selectByExample(example);
+		Fenlei fenlei = null;
+		for (Fenlei fenlei1 : list) {
+			fenlei = fenlei1;
+		}
+		// System.out.println(book);
+		return fenlei;
 	}
 }

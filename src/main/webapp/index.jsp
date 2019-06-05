@@ -2,7 +2,7 @@
 <frame  src="top.jsp">
    <frameset cols="25%,* ">
     <frame src="left.jsp">
-	<frame src="FenleiServlet?action=showPasgefl&ausername=${ausername  }" name="right">    	 
+	<frame src="http://localhost/Book/fenleis/1" name="right">    	 
    </frameset>
    <frameset  >
      <frameset cols="8%,* ,8%">

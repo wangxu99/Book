@@ -176,4 +176,18 @@
 	<select id="yanzhengAddFenlei2" parameterType="java.lang.Integer" resultType="java.lang.Integer">
     SELECT COUNT(*) FROM book WHERE flid =#{fid}
 	</select>
+	
+	<select id="selectOutPutIds"  parameterType="list" resultType="Fenlei">	<!-- 自定义 选择导出 -->
+		select * from fenlei 
+    
+     <where>
+		fenlei.fid in
+		<foreach collection="list" item="id" open="(" separator="," close=")" >
+		     #{id}
+	 </foreach>
+	 
+   </where> 
+		 order by fenlei.fid desc
+	</select>
+	 
 </mapper>

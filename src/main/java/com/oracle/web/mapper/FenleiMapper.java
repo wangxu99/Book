@@ -38,5 +38,9 @@ public interface FenleiMapper {
 
 	int yanzhengAddFenlei2(Integer fid);
 
+	List<Fenlei> selectOutPutIds(List<Integer> list);
+
+	 
+
 	
 }

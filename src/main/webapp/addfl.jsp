@@ -26,7 +26,7 @@
 
 		},
 		fields : {
-			name : {
+			fname : {
 				validators : {
 
 					notEmpty : {
@@ -41,22 +41,45 @@
 
 					// threshold :  6 , 有6字符以上才发送ajax请求，（input中输入一个字符，插件会向服务器发送一次，设置限制，6字符以上才开始）
 					remote : {//ajax验证。server result:{"valid",true or false} 向服务发送当前input name值，获得一个json数据。例表示正确：{"valid",true}  
-						url : "FenleiServlet",//验证地址
+						url : "yanzhengAddFenlei",//验证地址
 						 //提示消息
 						delay : 500,//每输入一个字符，就发ajax请求，服务器压力还是太大，设置2秒发送一次ajax（默认输入一个字符，提交一次，服务器压力太大）
-						type : 'POST',//请求方式
+						type : 'GET',//请求方式
 
 						//自定义提交数据，默认值提交当前input value
 						data : function(validator) {
 							return {
-								action : "yanzheng",
-								name : $("#name").val() 
+								fid : $("#fid").val()
+								fname : $("#fname").val() 
 							 
 							}
 						}
 
 					}
 
+				}
+
+			},
+			fid : {
+
+				validators : {
+
+					callback : {
+
+						callback : function(value, validator) {
+
+							if (fid.value == 0) {
+								return {
+									valid : false,
+
+									message : '必须选择',
+								}
+
+							}
+							return true;
+
+						}
+					}
 				}
 
 			}
@@ -115,7 +138,7 @@ border: 1px solid #D7E4E8;
 					<label for="Input1" class="col col-sm-5   control-label  text-info">
 						请输入分类的名字: </label>
 					<div class="col-sm-5">
-						<input type="text" name="name"  
+						<input type="text" name="fname"  
 							class="form-control" id="Input1" />
 
 					</div>

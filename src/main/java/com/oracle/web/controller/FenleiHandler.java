@@ -9,6 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -18,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.oracle.web.bean.Book;
+import com.oracle.web.bean.BookAndFenlei;
 import com.oracle.web.bean.Fenlei;
 import com.oracle.web.bean.PageBean;
 import com.oracle.web.service.FenleiService;
@@ -67,29 +75,69 @@ public class FenleiHandler {
 		
 	}
 	
+	// 添加图书校验
+		@RequestMapping(value = "/yanzhengAddFenlei", method = RequestMethod.GET)
+		public void yanzhengAddFenlei(@RequestParam(value = "fname") String fname, @RequestParam(value = "fid") String fid,
+				HttpServletResponse response) throws IOException {
+			// 调用service进行查询
+			 
+			response.setContentType("text/html;charset=UTF-8");
+			Fenlei f = this.fenleiService.yanzhengAddFenlei(fname, fid);
+
+			// System.out.println(existUser);
+			// 获取response对象，向页面输出信息
+
+			// 判断是否为空
+			if (f == null) {
+				// 分类下图书不经存在，可以添加
+				// 有异常则向上抛出
+				response.getWriter().write("{\"valid\":\"true\"}");
+			} else {
+				// 分类下图书已存在，不能添加
+
+				response.getWriter().write("{\"valid\":\"false\"}");
+
+			}
+			// AJAX操作，不需要页面跳转
+
+		}
+
+	
 	@RequestMapping(value = "/fenlei_delete/{fid}", method = RequestMethod.DELETE)
-	public String delete(@PathVariable("fid") Integer id) {
+	public String delete(@PathVariable("fid") String fid1,HttpSession session) {
+
+		Integer fid=Integer.parseInt(fid1);
+		
+		int a= this.fenleiService.yanzhengAddFenlei2(fid);
+		if(a==0){
+			Fenlei f = new Fenlei();
 
 
-		Fenlei f = new Fenlei();
+			f.setFid(fid);
 
 
-		f.setFid(id);
+			fenleiService.delete(f);
 
+			session.setAttribute("mag", "删除成功");
+			return "redirect:/fenleis/1";
 
-		fenleiService.delete(f);
+		}else{
+			
+			session.setAttribute("mag", "该分类下有图书禁止删除");
+			 
+			return "redirect:/fenleis/1";
 
+		}
 
-		return "redirect:/fenleis/1";
-
+	 
 
 	}
 	
 	
 	@RequestMapping(value = "/fenlei/{fid}", method = RequestMethod.GET)
-	public String updateUI(@PathVariable("fid") Integer fid, HttpSession session) {
+	public String updateUI(@PathVariable("fid") String fid1, HttpSession session) {
 
-          
+          Integer fid=Integer.parseInt(fid1);
 		Fenlei fenlei = fenleiService.selectByPrimaryKey(fid);
 
 		List<Fenlei> flist = this.fenleiService.selectFenleiAll();
@@ -174,5 +222,73 @@ public class FenleiHandler {
 		}
 	
 	
-	
-} 
+		// 导出分类
+		@RequestMapping(value = "/outPutFenLei/{ids}", method = RequestMethod.GET)
+		public void
+		outPutFenLei(@PathVariable(value = "ids") String ids1,HttpServletResponse response) throws IOException {
+			 
+			List<Fenlei> list = null;
+			String key = "";
+			if (ids1.equals("a")) {//传入a 表示导出全部
+				
+				list = this.fenleiService.outPutFenLeiAll();
+				key = "全部";
+
+			}else{ 
+				//System.out.println(ids1);
+				list = this.fenleiService.outPutFenleiIds(ids1);
+				key = "勾选";
+
+			}
+			//创件一个工作蒲
+			HSSFWorkbook Workbook = new HSSFWorkbook();
+			//创建一个工作表
+			HSSFSheet sheet = Workbook.createSheet(key + "分类信息表");
+	          
+			sheet.setColumnWidth(7, 15 * 256); //设定列宽度
+			//设置样式
+			HSSFCellStyle style = Workbook.createCellStyle();
+			style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+			HSSFFont font = Workbook.createFont();
+			font.setBold(true);
+			font.setColor(HSSFColor.DARK_RED.index);
+			style.setFont(font);
+			String[] title = { "分类编号", "分类名"};
+			HSSFRow row = sheet.createRow(0);//从0开始
+			for (int i = 0; i < title.length; i++) {
+				HSSFCell cell = row.createCell(i);
+				cell.setCellStyle(style);
+				cell.setCellValue(title[i]);
+			}
+			HSSFCellStyle style1 = Workbook.createCellStyle();
+			style1.setAlignment(HSSFCellStyle.ALIGN_CENTER);// 居中
+			// 设置字体样式
+			for (int i = 0; i < list.size(); i++) { 
+
+				HSSFRow row1 = sheet.createRow(i + 1);
+				Fenlei fenlei = list.get(i);
+
+				HSSFCell cell1 = row1.createCell(0);
+				cell1.setCellValue(fenlei.getFid());
+
+				HSSFCell cell2 = row1.createCell(1);
+				cell2.setCellValue(fenlei.getFname());
+ 
+  
+ 
+				cell1.setCellStyle(style1);
+				cell2.setCellStyle(style1);
+				 
+			 
+ 
+			}
+			 
+			 String fname = key +"分类信息表.xls"; 
+			response.setContentType("application/octet-stream");
+			response.setHeader("Content-disposition", "attachment;filename="+new String(fname.getBytes("UTF-8"), "iso-8859-1"));
+			response.flushBuffer();
+			 Workbook.write(response.getOutputStream());
+			 
+		}
+
+	}

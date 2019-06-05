@@ -30,7 +30,7 @@
 <script type="text/javascript" src="js/jquery-1.8.3.js"></script>
 <script>
 
-	 <%--  $(function(){  
+	    $(function(){  
  	 
 		var chek = document.getElementsByName("ids");
 
@@ -118,11 +118,20 @@
 			 
 				var flage = confirm("你确定删除所勾选的分类吗？");
 				if (flage == true) {//确定
-					window.location.href ="<%=base%>FenleiServlet?action=delete&ids="+str+ "&pageNew=${pb.pageNew}&ausername=${ausername }";
+					//拿到请求地址
+					var $url = "http://localhost/Book/fenlei_delete/"+ str;
+
+					//alert($url);
+					//拿到表单
+					$("#deleteForm").attr("action", $url);
+
+					//提交表单
+					$("#deleteForm").submit();
 
 				} else {//取消
 
-					window.location.href ="<%=base%>FenleiServlet?action=showPasgefl&pageNew=${pb.pageNew }&ausername=${ausername }";
+					 
+					window.location.href = "http://localhost/Book/fenleis/1";
 
 				}
 			}
@@ -163,11 +172,11 @@
 
 				var flag = confirm("你确定导出所勾选的分类信息吗？");
 				if (flag == true) {//确定
-					window.location.href = "<%=base%>OpFLServlet?action=outids&ids="+str;
+					window.location.href = "http://localhost/Book/outPutFenLei/" + str;
 
 				} else {//取消
 					
-					window.location.href ="<%=base%>FenleiServlet?action=showPasgefl&pageNew=${pb.pageNew }&ausername=${ausername }";
+					window.location.href = "http://localhost/Book/fenlei1";
 				}
 			}
 		};
@@ -176,18 +185,18 @@
 		outAll.onclick = function() { 
 			var flag = confirm("你确定导出全部的分类信息吗？");
 			if (flag == true) {//确定
-				window.location.href = "<%=base%>OpFLServlet?action=all";
+				window.location.href ="http://localhost/Book/outPutFenLei/a";
 			 
 		} else {//取消
 			
 		 
-			window.location.href ="<%=base%>FenleiServlet?action=showPasgefl&pageNew=${pb.pageNew }&ausername=${ausername }";
+			window.location.href = "http://localhost/Book/fenlei1/${pb.pageNow}";
 		} 
 		 
 		} 
  });
 	
-  --%>
+ 
 		
 </script>
 <style>
@@ -285,6 +294,13 @@ width: 860px;
 
 					</td>
 				</tr>
+				<tr>
+						<td>
+							<form action="" method="post" id="deleteForm">
+								<input type="hidden" name="_method" value="DELETE">
+							</form>
+						</td>
+					</tr>
 				<tr align="center">
 					<td>
                       

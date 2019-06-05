@@ -29,6 +29,12 @@ public interface FenleiService {
 
 	int yanzhengAddFenlei2(Integer fid);
 
+	List<Fenlei> outPutFenLeiAll();
+
+	List<Fenlei> outPutFenleiIds(String ids1);
+
+	Fenlei yanzhengAddFenlei(String fname, String fid);
+
 	 
 
 	 
