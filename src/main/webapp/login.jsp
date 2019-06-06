@@ -16,7 +16,7 @@
 
 <title>图书管理系统</title>
  <script>
-	$(function() {
+  $(function() {
 		$(".form-horizontal").bootstrapValidator({
 
 			feedbackIcons : {
@@ -26,7 +26,7 @@
 
 			},
 			fields : {
-				/*username : {
+				username : {
 					validators : {
 
 						notEmpty : {
@@ -38,7 +38,7 @@
 							message : '用户名必须是3-15个字母或数字组成'
 						},
 					}
-				},*/
+				},
 				password : {
 					validators : {
 
@@ -49,10 +49,10 @@
 
 						  threshold : 6 , //有6字符以上才发送ajax请求，（input中输入一个字符，插件会向服务器发送一次，设置限制，6字符以上才开始）
 						remote : {//ajax验证。server result:{"valid",true or false} 向服务发送当前input name值，获得一个json数据。例表示正确：{"valid",true}  
-							url : "AdminServlet",//验证地址
+							url : "adminloginYZ",//验证地址
 							message : '用户名或密码错误',//提示消息
 							delay :500,//每输入一个字符，就发ajax请求，服务器压力还是太大，设置2秒发送一次ajax（默认输入一个字符，提交一次，服务器压力太大）
-							type : 'POST',//请求方式
+							type : 'GET',//请求方式
 
 							//自定义提交数据，默认值提交当前input value
 							data : function(validator) {
@@ -71,7 +71,7 @@
 			}
 
 		})
-	});
+	});  
 </script>
 <style>
 body {
@@ -164,6 +164,9 @@ margin-left: 25%;
 			</script>
 		</c:if>
 		<c:remove var="mag" />
+		
+		<c:remove var="ausername" />
+		
 	<div class="row header" id="div1">
 			<!-- 上 -->
 			<div class="col col-md-8 col-sm-10 col-xs-12" id="top2">
@@ -177,7 +180,7 @@ margin-left: 25%;
 		<div class="container-fluid bg"  >
 			<!-- 中 -->
 			<div class="col-md-4 col-sm-8  col-xs-8 col-md-offset-8  " id="form">
-				<form action="AdminServlet?action=login" method="post"
+				<form action="login" method="GET"
 					class="form-horizontal" >
 					<div class="form-group">
 					<div class="gl">
@@ -220,7 +223,7 @@ margin-left: 25%;
               
 					<div class="form-group">
 					<div class="col-md-10 col-md-offset-1">
-						<button class="btn btn-primary  btn-md btn-block"  type="button" ><a href="addAdmin1.jsp?"><font size="2" color="#FFFFFF"><center>立即注册</center></font></a></button>
+						<button class="btn btn-primary  btn-md btn-block"  type="button" ><a href="addAdmin1.jsp"><font size="2" color="#FFFFFF"><center>立即注册</center></font></a></button>
 					</div>
 					</div>
 				</form>

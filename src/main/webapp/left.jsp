@@ -96,11 +96,11 @@ h3{
 		<div>
 
 			<li><span class="ui-icon ui-icon-search"></span><a
-				href="AdminServlet?action=showxinxi&ausername=${ausername }" target="right"><font size="4" face="黑体"
+				href="showAdmin" target="right"><font size="4" face="黑体"
 					color="#337AB7">查看管理员信息</font></a></li>
 
 			<li><span class="ui-icon ui-icon-wrench"></span><a
-				href="AdminServlet?action=changeMm&ausername=${ausername }" target="right"><font size="4" face="黑体"
+				href="changeMm.jsp" target="right"><font size="4" face="黑体"
 					color="#337AB7">修改密码</font></a></li>
 			<li><span class="ui-icon ui-icon-power"></span><a
 				href="exit.jsp" target="_top"><font size="4" face="黑体"

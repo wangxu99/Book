@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="bootstrap/css/bootstrapValidator.css" />
 <script type="text/javascript" src="bootstrap/js/bootstrapValidator.js"></script>
 
-<title>添加用户</title>
+<title>修改密码</title>
 
 <script type="text/javascript" src="js/ajax.js"></script>
 <script type="text/javascript">
@@ -66,16 +66,16 @@
 
 						// threshold :  6 , 有6字符以上才发送ajax请求，（input中输入一个字符，插件会向服务器发送一次，设置限制，6字符以上才开始）
 						remote : {//ajax验证。server result:{"valid",true or false} 向服务发送当前input name值，获得一个json数据。例表示正确：{"valid",true}  
-							url : "AdminServlet",//验证地址
+							url : "adminpasswordYZ",//验证地址
 							 //提示消息
 							delay : 2000,//每输入一个字符，就发ajax请求，服务器压力还是太大，设置2秒发送一次ajax（默认输入一个字符，提交一次，服务器压力太大）
-							type : 'POST',//请求方式
+							type : 'GET',//请求方式
 							message : '原密码错误',
 							//自定义提交数据，默认值提交当前input value
 							data : function(validator) {
 								return {
-									action : "yanzhengmm",
-									password2:$('input[name=password2]').val(),
+									
+									password:$('input[name=password2]').val(),
 									ausername:"${ausername}"
 								}
 							}
@@ -148,9 +148,10 @@ border: 1px solid #D7E4E8;
 			<table    >
 				<tr>
 					<td valign="top" width="60%">
-		<form name="register" action="AdminServlet?action=updatemm&ausername=${ausername  }"
+		<form name="register" action="updatePassword"
 			method="post" class="form-horizontal">
-		 <input type="hidden" id="mag" value="${mag}"/>
+			<input type="hidden" name="_method" value="PUT"> 
+		 
 			<div class="form-group">
 				<label class="col-sm-3 col-sm-offset-2 control-label text-danger ">原密码：</label>
 				<div class="col-sm-4">

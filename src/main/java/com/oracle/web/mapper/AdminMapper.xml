@@ -225,4 +225,8 @@
       touxiang = #{touxiang,jdbcType=VARCHAR}
     where aid = #{aid,jdbcType=INTEGER}
   </update>
+  <!--  管理员登录,注册校验 wx -->
+   <select id="loginYanZheng" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from admin where ausername = #{ausername}
+  </select>
 </mapper>

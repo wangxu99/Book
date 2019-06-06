@@ -32,7 +32,7 @@
 							},
 							fields : {
 
-								name : {
+								aname : {
 									validators : {
 
 										notEmpty : {
@@ -69,14 +69,12 @@
 											url : "AdminServlet",//验证地址
 											message : '该用户名已存在',//提示消息
 											delay : 500,//每输入一个字符，就发ajax请求，服务器压力还是太大，设置2秒发送一次ajax（默认输入一个字符，提交一次，服务器压力太大）
-											type : 'POST',//请求方式
+											type : 'GET',//请求方式
 
 											//自定义提交数据，默认值提交当前input value
 											data : function(validator) {
 												return {
-													action : "yanzheng",
-													ausername : $(
-															"input[name=ausername]")
+													ausername : $("input[name=ausername]")
 															.val()
 
 												}
@@ -128,8 +126,12 @@
 									}
 								},
 								touxiang : {
-
 									validators : {
+										notEmpty : {
+
+											message : '头像不能为空'
+											
+										},
 										file : {
 											extension : 'pdf,jpg,gif,png,bmp,jpeg',
 											type : 'image/pdf,image/jpg,image/gif,image/png,image/bmp,image/jpeg',
@@ -239,7 +241,8 @@ a {
 			<!-- 中 -->
 			<div class="container">
 				<div class="col-md-5 col-sm-10  col-xs-12 col-md-offset-4" id="fr">
-					<form name="register" action="AdminServlet?action=addadmin1" method="post" enctype="multipart/form-data" class="form-horizontal">
+					<form name="register"  action="addadmin" method="post" 
+					 enctype="multipart/form-data" class="form-horizontal">
 						<div class="form-group">
 							<h2 class="col-sm-7 col-sm-offset-3">
 								<font color="#2D6A9C" size="7" face="楷体"><b>管理员注册</b></font>
@@ -247,14 +250,14 @@ a {
 						</div>
 
 						<div class="form-group">
-							<label for="ausername" class="col-sm-4 control-label "> <font
+							<label for="aname" class="col-sm-4 control-label "> <font
 								color="#2D6A9C">姓名:</font></label>
 							<div class="col-sm-6">
-								<input type='text' name='name' class="form-control input-sm" />
+								<input type='text' name='aname' class="form-control input-sm" />
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="ausername" class="col-sm-4 control-label   ">
+							<label for="phone" class="col-sm-4 control-label   ">
 								<font color="#2D6A9C"> 电话: </font>
 							</label>
 							<div class="col-sm-6">
@@ -270,14 +273,14 @@ a {
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="ausername" class="col-sm-4 control-label "> <font
+							<label for="touxiang" class="col-sm-4 control-label "> <font
 								color="#2D6A9C"> 头像: </font></label>
 							<div class="col-sm-6">
 								<input type="file" name='touxiang' class="form-control input-sm">
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="ausername" class="col-sm-4 control-label  "> <font
+							<label for="password" class="col-sm-4 control-label  "> <font
 								color="#2D6A9C"> 密&nbsp;&nbsp;码: </font></label>
 							<div class="col-sm-6">
 								<input type="password" name='password'
@@ -285,7 +288,7 @@ a {
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="ausername" class="col-sm-4 control-label "><font
+							<label for="repassword" class="col-sm-4 control-label "><font
 								color="#2D6A9C"> 确认密码: </font></label>
 							<div class="col-sm-6">
 								<input type="password" name='repassword'
@@ -314,8 +317,6 @@ a {
 			</div>
 		</div>
 		<footer class="footer">
-			<!-- 下 -->
-
 			<h4>
 				<font size="3" color="#b1b1b1">图书管理系统版权所有&copy;2019-2030</font>
 			</h4>
