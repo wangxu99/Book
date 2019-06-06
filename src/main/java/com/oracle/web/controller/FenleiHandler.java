@@ -77,12 +77,12 @@ public class FenleiHandler {
 	
 	// 添加图书校验
 		@RequestMapping(value = "/yanzhengAddFenlei", method = RequestMethod.GET)
-		public void yanzhengAddFenlei(@RequestParam(value = "fname") String fname, @RequestParam(value = "fid") String fid,
+		public void yanzhengAddFenlei(@RequestParam(value = "fname") String fname, 
 				HttpServletResponse response) throws IOException {
 			// 调用service进行查询
 			 
 			response.setContentType("text/html;charset=UTF-8");
-			Fenlei f = this.fenleiService.yanzhengAddFenlei(fname, fid);
+			Fenlei f = this.fenleiService.yanzhengAddFenlei(fname);
 
 			// System.out.println(existUser);
 			// 获取response对象，向页面输出信息

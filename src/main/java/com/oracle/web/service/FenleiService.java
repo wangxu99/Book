@@ -33,7 +33,7 @@ public interface FenleiService {
 
 	List<Fenlei> outPutFenleiIds(String ids1);
 
-	Fenlei yanzhengAddFenlei(String fname, String fid);
+	//Fenlei yanzhengAddFenlei(String fname, String fid);
 
 	 
 

@@ -160,14 +160,14 @@ public class FenleiServiceImpl implements FenleiService {
 		return this.fenleiMapper.selectOutPutIds(list);
 	}
 
-	//添加分类验证
+/*	//添加分类验证
 	@Override
 	@Transactional
 	public Fenlei yanzhengAddFenlei(String fname, String fid) {
 		// TODO Auto-generated method stub
 		FenleiExample example = new FenleiExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andFidEqualTo(Integer.parseInt(fid));
+	//criteria.andFidEqualTo(Integer.parseInt(fid));
 		criteria.andFnameEqualTo(fname);
 		List<Fenlei> list = this.fenleiMapper.selectByExample(example);
 		Fenlei fenlei = null;
@@ -177,4 +177,5 @@ public class FenleiServiceImpl implements FenleiService {
 		// System.out.println(book);
 		return fenlei;
 	}
+	*/
 }
