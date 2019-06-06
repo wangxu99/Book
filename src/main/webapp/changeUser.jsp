@@ -291,7 +291,7 @@ hr {
 
 						<div class="col-sm-2  col-sm-offset-1">
 
-							<a href="UserServlet?action=showPasgeUser&pageNew=${pageNew }&ausername=${ausername  }"
+							<a href="showUserByPage"
 								class="btn btn-info">返回 <span
 								class="glyphicon glyphicon-repeat"></span></a>
 
