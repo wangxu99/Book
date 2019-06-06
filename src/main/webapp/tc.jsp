@@ -30,7 +30,7 @@ margin-top: 250px;
 </head>
 <body><h3><span id="jumpTo">3</span>秒后自动跳转到   - - -> 登录界面</h3> 
 <script type="text/javascript">
-countDown(3,'http://39.96.216.117/LibraryManagementSystem/exit.jsp');
+countDown(3,'http://localhost/Book/exit.jsp');
 </script> 
 </body>
 </html>

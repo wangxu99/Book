@@ -27,4 +27,8 @@ public interface AdminMapper {
     int updateByPrimaryKeySelective(Admin record);
 
     int updateByPrimaryKey(Admin record);
+
+	Admin loginYanZheng(String username);
+
+	//int updatePassword(String uname, String newpassword);
 }

@@ -7,47 +7,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="bootstrap/css/bootstrap.css" />
+
 <script type="text/javascript" src="bootstrap/js/jquery.js"></script>
 <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
 <link rel="stylesheet" href="bootstrap/css/bootstrapValidator.css" />
+<script type="text/javascript" src="iconfont/iconfont.js"></script>
 <script type="text/javascript" src="bootstrap/js/bootstrapValidator.js"></script>
-
 <title>查看管理员</title>
-<script type="text/javascript" src="js/ajax.js"></script>
 <script type="text/javascript">
-	window.onload = function() {//遍历管理员信息
-		ajax({
-			method : "POST",
-			url : "AdminServlet",
-			params : "action=showAdmin&ausername=${ausername  }",
-			type : "json",
-			success : function(content) {
-				var admin = content;
-				 
-				var id = document.getElementById("id");
-				id.value = admin.id;
-
-				var name = document.getElementById("name");
-				name.value = admin.name;
-
-				var password = document.getElementById("password1");
-				password.value = admin.password;
-
-				var phone = document.getElementById("phone");
-				phone.value = admin.phone;
-
-				var username = document.getElementById("ausername");
-				username.value = admin.ausername;
-				var touxiang= document.getElementById("touxiang");
-				var img=document.createElement("img");
-				img.src=admin.touxiang;
-				img.width=180;
-				img.height=80;
-				touxiang.appendChild(img);
-				 
-			}
-		});
-	};
+		
 </script>
 <style>
 #div1 {
@@ -86,29 +54,29 @@ margin-left: 30%;
 		 <caption  ><font color="#337AB7" size="7" face="宋体">查看管理员</font></caption>
 		<tr align="center" >
 			<td ><br>头像：</td>
-			<td id="touxiang">
+			<td id="touxiang" ><img alt="" src="${a.touxiang}" width="150" height="70">
 			</td>
 		</tr>
 		<tr align="center">
 			<td>编号：</td>
-			<td><input type="text" id="id" /></td>
+			<td><input type="text" id="aid" value="${a.aid}"/></td>
 		</tr>
 		<tr align="center">
 			<td>姓名：</td>
-			<td><input type="text" id="name" /></td>
+			<td><input type="text" id="aname" value="${a.aname}" /></td>
 		</tr>
 		<tr align="center">
 			<td>账号：</td>
-			<td><input type="text" id="ausername" /></td>
+			<td><input type="text" id="ausername" value="${a.ausername}"/></td>
 		</tr>
 
 		<tr align="center">
 			<td>密码：</td>
-			<td><input type="password" disabled="disabled" id="password1" /></td>
+			<td><input type="password" disabled="disabled" id="password1" value="${a.password}" /></td>
 		</tr>
 		<tr align="center">
 			<td>手机：</td>
-			<td><input type="text" id="phone" /></td>
+			<td><input type="text" id="phone" value="${a.phone}"/></td>
 		</tr>
 	</table>
 	</div>
