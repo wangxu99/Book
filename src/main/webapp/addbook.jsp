@@ -163,6 +163,12 @@ hr {
 	<div class="container-fluid" id="div9">
 		<!--  <marquee align="texttop" behavior="slide" scrollamount="60"
 			direction="up">-->
+			<c:if test="${!empty mag }">
+			<script>
+				alert("${mag }");
+			</script>
+		</c:if>
+		<c:remove var="mag" />
 		<div class="col col-md-5 col-md-offset-2" id="div1">
 
 			<h2 class="text-center text-info">添加图书</h2>

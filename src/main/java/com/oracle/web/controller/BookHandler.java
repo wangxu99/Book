@@ -152,9 +152,10 @@ public class BookHandler {
 		// System.out.println(monster.toString());
 		int i = this.bookService.save(book);
 		if (i == 1) {
-			request.setAttribute("mag", "添加图书成功");
+			request.getSession().setAttribute("mag", "添加图书成功");
 			return "redirect:/showBookHandler/1";
 		} else {
+			request.getSession().setAttribute("mag", "添加图书失败");
 			return "forward:/addBookUl";
 		}
 
@@ -198,12 +199,10 @@ public class BookHandler {
 	public void yzUpdateBook(@RequestParam(value = "bname") String bname, @RequestParam(value = "flid") String flid,
 			@RequestParam(value = "bid") Integer bid, HttpServletResponse response) throws IOException {
 		// 调用service进行查询
-		// System.out.println(userName);
+		 
 		response.setContentType("text/html;charset=UTF-8");
 		Book b = this.bookService.yanzhengAddBook(bname, flid);
-
-		// System.out.println(b.toString());
-		// 获取response对象，向页面输出信息
+ 
 
 		// 判断是否为空
 		if (b == null) {
