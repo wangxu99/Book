@@ -372,7 +372,7 @@
 					<tr>
 						<td align="center">
 						<c:if test="${showPesge=='gao'}">
-								  第${pb.pageNow }页/共${pb.pages }
+								<p>  第${pb.pageNow }页/共${pb.pages }
 									<ul class="pagination "> 
 									<li><a href="${pb.url }&pageNow=1">首页</a>
 									</li>
@@ -429,7 +429,7 @@
 								</a>
 								</li>
 								 </ul>
-								 
+								</p> 
 					  </c:if>
 					  <c:if test="${showPesge=='showBook'}"> 
 								<p>第${pb.pageNow }页/共${pb.pages } 
